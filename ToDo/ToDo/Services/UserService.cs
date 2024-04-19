@@ -1,0 +1,43 @@
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ToDo.Entities;
+
+namespace ToDo.Services
+{
+    public class UserService
+    {
+        private readonly ToDoDbContext _context = new ToDoDbContext();
+        private User user = new User();
+        public void loadDatabase()
+        {
+            _context.Database.EnsureCreated();
+            _context.Users.Load();
+            _context.Projects.Load();
+            _context.Tasks.Load();
+            _context.SubTasks.Load();
+        }
+        public void addUser(string login, int pin)
+        {
+            user.Username = login;
+            user.Pin = pin;
+            _context.Users.Add(user);
+            _context.SaveChanges();
+        }
+        public bool loginUser(string login, int pin)
+        {
+            var user = _context.Users.SingleOrDefault(a=>a.Username == login && a.Pin == pin);
+            if(user!=null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+}

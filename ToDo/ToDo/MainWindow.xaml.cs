@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Security.Principal;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ToDo.Entities;
+using ToDo.Services;
 
 namespace ToDo;
 
@@ -18,7 +20,8 @@ namespace ToDo;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private readonly ToDoDbContext _context = new ToDoDbContext();
+    private UserService _userService;
+
     public MainWindow()
     {
         InitializeComponent();
@@ -27,11 +30,36 @@ public partial class MainWindow : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        _context.Database.EnsureCreated();
-        _context.Users.Load();
-        _context.Projects.Load();
-        _context.Tasks.Load();
-        _context.SubTasks.Load();
+        _userService = new UserService();
+        _userService.loadDatabase();
+    }
 
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        if(addUserForm.Visibility == System.Windows.Visibility.Collapsed)
+        {
+            addUserForm.Visibility = System.Windows.Visibility.Visible;
+        }
+        else
+        {
+            addUserForm.Visibility = System.Windows.Visibility.Collapsed;
+        }
+    }
+
+    private void ButtonAddUser(object sender, RoutedEventArgs e)
+    {
+        _userService.addUser(userRegister.Text, int.Parse(userRegisterPin.Text));
+    }
+
+    private void ButtonLogin(object sender, RoutedEventArgs e)
+    {
+        if(_userService.loginUser(userLogin.Text, int.Parse(userPin.Text)))
+        {
+            isLogged.Text = "Udało się zalogować";
+        }
+        else
+        {
+            isLogged.Text = "Nie powodzenie";
+        }
     }
 }

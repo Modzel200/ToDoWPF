@@ -1312,7 +1312,8 @@
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
       "Microsoft.EntityFrameworkCore.Proxies >= 8.0.4",
-      "Microsoft.EntityFrameworkCore.Sqlite >= 8.0.4"
+      "Microsoft.EntityFrameworkCore.Sqlite >= 8.0.4",
+      "Microsoft.Extensions.DependencyInjection >= 8.0.0"
     ]
   },
   "packageFolders": {
@@ -1361,6 +1362,10 @@
           "Microsoft.EntityFrameworkCore.Sqlite": {
             "target": "Package",
             "version": "[8.0.4, )"
+          },
+          "Microsoft.Extensions.DependencyInjection": {
+            "target": "Package",
+            "version": "[8.0.0, )"
           }
         },
         "imports": [
