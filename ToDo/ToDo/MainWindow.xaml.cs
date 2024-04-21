@@ -39,10 +39,12 @@ public partial class MainWindow : Window
         if(addUserForm.Visibility == System.Windows.Visibility.Collapsed)
         {
             addUserForm.Visibility = System.Windows.Visibility.Visible;
+            buttonImg.Image = new BitmapImage(new Uri("pack://application:,,,/Icons/chevrons_right_icon.png"));
         }
         else
-        {
+        {   
             addUserForm.Visibility = System.Windows.Visibility.Collapsed;
+            buttonImg.Image = new BitmapImage(new Uri("pack://application:,,,/Icons/chevrons_left_icon.png"));
         }
     }
 

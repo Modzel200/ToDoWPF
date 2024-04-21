@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDo"
+        xmlns:Components="clr-namespace:ToDo.Components"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
@@ -31,14 +32,14 @@
                 </Grid.RowDefinitions>
                 <TextBlock>Tutaj panel logowania</TextBlock>
                 <TextBlock Margin="250 20 0 0" >Login</TextBlock>
-                <TextBox Height="30px" Width="100px" Name="userLogin"></TextBox>
+                <Components:CustomTextBox x:Name="userLogin"/>
                 <Grid Grid.Row="1">
                     <TextBlock Margin="250 20 0 0" >PIN</TextBlock>
-                    <TextBox Height="30px" Width="100px" Name="userPin"></TextBox>
+                    <Components:CustomTextBox  x:Name="userPin"/>
                 </Grid>
                 <Grid Grid.Row="2">
                     <TextBlock Name="isLogged">Czy zalogowany?</TextBlock>
-                    <Button Width="100" Height="30" Click="ButtonLogin">Zaloguj się</Button>
+                    <Components:CustomButton  Click="ButtonLogin" Text="Zaloguj się"/>
                 </Grid>
             </Grid>
             <Grid Grid.Column="1">
@@ -56,18 +57,18 @@
                     <Grid Grid.Row="0">
                         <TextBlock>Stwórz użytkownika</TextBlock>
                         <TextBlock Margin="100 20 0 0" >Login</TextBlock>
-                        <TextBox Height="30px" Width="100px" Name="userRegister"></TextBox>
+                        <Components:CustomTextBox x:Name="userRegister"/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <TextBlock Margin="100 20 0 0">PIN</TextBlock>
-                        <TextBox Height="30px" Width="100px" Name="userRegisterPin"></TextBox>
+                        <Components:CustomTextBox x:Name="userRegisterPin"/>
                     </Grid>
                     <Grid Grid.Row="2">
-                        <Button Width="50" Height="20" Click="ButtonAddUser">Utwórz</Button>
+                        <Components:CustomButton Width="100"  Click="ButtonAddUser" Text="Utwórz"/>
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <Button Click="Button_Click">Dodaj użytkownika(w przyszłości oddzielny komponent)</Button>
+                    <Components:IconButton HorizontalAlignment="Right"  x:Name="buttonImg" Width="100" Margin="10,0,10,0"  Click="Button_Click" Image="/Icons/chevrons_left_icon.png"/>
                 </Grid>
             </Grid>
         </Grid>

@@ -9,9 +9,40 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Icons\check_icon.png" />
+      <None Remove="Icons\chevrons_left_icon.png" />
+      <None Remove="Icons\chevrons_right_icon.png" />
+      <None Remove="Icons\chevron_down_icon.png" />
+      <None Remove="Icons\chevron_left_icon.png" />
+      <None Remove="Icons\chevron_right_arrow_icon.png" />
+      <None Remove="Icons\chevron_up_icon.png" />
+      <None Remove="Icons\submit_icon.png" />
+      <None Remove="Icons\user_icon.png" />
+      <None Remove="Icons\x_icon.png" />
+      <None Remove="Icons\_settings_gear_icon.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="Icons\check_icon.png" />
+      <Resource Include="Icons\chevrons_left_icon.png" />
+      <Resource Include="Icons\chevron_down_icon.png" />
+      <Resource Include="Icons\chevron_left_icon.png" />
+      <Resource Include="Icons\chevron_right_arrow_icon.png" />
+      <Resource Include="Icons\chevron_up_icon.png" />
+      <Resource Include="Icons\submit_icon.png" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.4" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.4" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="Icons\chevrons_right_icon.png" />
+      <Resource Include="Icons\user_icon.png" />
+      <Resource Include="Icons\x_icon.png" />
+      <Resource Include="Icons\_settings_gear_icon.png" />
     </ItemGroup>
 
 </Project>
