@@ -14,7 +14,7 @@
             <Setter Property="Height" Value="50"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Background" Value="#FF964F"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -23,7 +23,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="DarkGray"/>
+                                <Setter TargetName="border" Property="Background" Value="#FFFBB07D"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -32,7 +32,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Button Click="button_Click">
+    <Button Click="button_Click" Width="{Binding ElementName=ImageButton, Path=ActualWidth}" Height="{Binding ElementName=ImageButton, Path=ActualHeight}">
         <Button.Content>
             <StackPanel Orientation="Horizontal">
                 <Image Width="24" Height="24" Margin="5,0,5,0" Source="{Binding ElementName=ImageButton, Path=Image}"/>

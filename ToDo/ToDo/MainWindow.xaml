@@ -6,19 +6,22 @@
         xmlns:local="clr-namespace:ToDo"
         xmlns:Components="clr-namespace:ToDo.Components"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+        Height="450" Width="800"
+        Title="What ToDo" MinHeight="450" MinWidth="800" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="9*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Background="#FF964F">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="23*"/>
-                <ColumnDefinition Width="137*"/>
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.ColumnSpan="2">Tu navbar do wstawienia będzie</TextBlock>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Foreground="#FFFFFF" FontSize="16">What ToDo</TextBlock>
+            </StackPanel>
         </Grid>
+
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="7*"></ColumnDefinition>
@@ -26,20 +29,51 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="6*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock>Tutaj panel logowania</TextBlock>
-                <TextBlock Margin="250 20 0 0" >Login</TextBlock>
-                <Components:CustomTextBox x:Name="userLogin"/>
+                <Grid Grid.Row="0" Margin="0,10,0,0">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center" Margin="0,0,0,10" >Login</TextBlock>
+                    <Components:CustomTextBox x:Name="userLogin"/>
+                </StackPanel>
+                </Grid>
                 <Grid Grid.Row="1">
-                    <TextBlock Margin="250 20 0 0" >PIN</TextBlock>
-                    <Components:CustomTextBox  x:Name="userPin"/>
+                    <StackPanel >
+                        <TextBlock HorizontalAlignment="Center" Margin="0,0,0,10" >PIN</TextBlock>
+                        <Components:CustomTextBox  x:Name="userPin" Margin="0,0,0,10"/>
+                        <Grid HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Components:IconButton Grid.Row="0" Grid.Column="0" x:Name="button1" Width="35" Height="35" Image="/Icons/number_one_light_icon.png" Margin="0,0,5,5" Click="NumberButton_Click" Tag="1"/>
+                            <Components:IconButton Grid.Row="0" Grid.Column="1" x:Name="button2" Width="35" Height="35" Image="/Icons/number_two_fill_icon.png" Margin="0,0,5,5" Click="NumberButton_Click" Tag="2"/>
+                            <Components:IconButton Grid.Row="0" Grid.Column="2" x:Name="button3" Width="35" Height="35" Image="/Icons/number_three_fill_icon.png" Margin="0,0,5,5" Click="NumberButton_Click" Tag="3"/>
+                            <Components:IconButton Grid.Row="1" Grid.Column="0" x:Name="button4" Width="35" Height="35" Image="/Icons/number_four_fill_icon.png" Margin="0,0,5,5" Click="NumberButton_Click" Tag="4"/>
+                            <Components:IconButton Grid.Row="1" Grid.Column="1" x:Name="button5" Width="35" Height="35" Image="/Icons/number_five_fill_icon.png" Margin="0,0,5,5" Click="NumberButton_Click" Tag="5"/>
+                            <Components:IconButton Grid.Row="1" Grid.Column="2" x:Name="button6" Width="35" Height="35" Image="/Icons/number_six_fill_icon.png" Margin="0,0,5,5" Click="NumberButton_Click" Tag="6"/>
+                            <Components:IconButton Grid.Row="2" Grid.Column="0" x:Name="button7" Width="35" Height="35" Image="/Icons/number_seven_fill_icon.png" Margin="0,0,5,5" Click="NumberButton_Click" Tag="7"/>
+                            <Components:IconButton Grid.Row="2" Grid.Column="1" x:Name="button8" Width="35" Height="35" Image="/Icons/number_eight_fill_icon.png" Margin="0,0,5,5" Click="NumberButton_Click" Tag="8"/>
+                            <Components:IconButton Grid.Row="2" Grid.Column="2" x:Name="button9" Width="35" Height="35" Image="/Icons/number_nine_fill_icon.png" Margin="0,0,5,5" Click="NumberButton_Click" Tag="9"/>
+                            <Components:IconButton Grid.Row="3" Grid.Column="1" x:Name="button0" Width="35" Height="35" Image="/Icons/number_zero_fill_icon.png" Margin="0,0,5,5" Click="NumberButton_Click" Tag="0"/>
+                        </Grid>
+                    </StackPanel>
                 </Grid>
                 <Grid Grid.Row="2">
-                    <TextBlock Name="isLogged">Czy zalogowany?</TextBlock>
-                    <Components:CustomButton  Click="ButtonLogin" Text="Zaloguj się"/>
+                    <StackPanel VerticalAlignment="Center">
+                        <CheckBox HorizontalAlignment="Center" Margin="0,0,0,10">Stay logged</CheckBox>
+                        <Components:CustomButton  Click="ButtonLogin" Text="Zaloguj się" Margin="0,0,0,10"/>
+                        <TextBlock HorizontalAlignment="Center" Name="isLogged">Czy zalogowany?</TextBlock>
+                    </StackPanel>
                 </Grid>
             </Grid>
             <Grid Grid.Column="1">
@@ -48,27 +82,34 @@
                     <RowDefinition Height="2*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Name="addUserForm" Grid.Row="0" Visibility="Collapsed">
-
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <TextBlock>Stwórz użytkownika</TextBlock>
-                        <TextBlock Margin="100 20 0 0" >Login</TextBlock>
-                        <Components:CustomTextBox x:Name="userRegister"/>
+                    <Grid Grid.Row="0" Margin="0,10,0,0">
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Center" Margin="0,0,0,10">Stwórz użytkownika</TextBlock>
+                            <TextBlock HorizontalAlignment="Center" Margin="0,0,0,10">Login</TextBlock>
+                            <Components:CustomTextBox x:Name="userRegister"/>
+                        </StackPanel>
                     </Grid>
                     <Grid Grid.Row="1">
-                        <TextBlock Margin="100 20 0 0">PIN</TextBlock>
-                        <Components:CustomTextBox x:Name="userRegisterPin"/>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Center" Margin="0,0,0,10">PIN</TextBlock>
+                            <Components:CustomTextBox x:Name="userRegisterPin"/>
+                        </StackPanel>
                     </Grid>
                     <Grid Grid.Row="2">
                         <Components:CustomButton Width="100"  Click="ButtonAddUser" Text="Utwórz"/>
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <Components:IconButton HorizontalAlignment="Right"  x:Name="buttonImg" Width="100" Margin="10,0,10,0"  Click="Button_Click" Image="/Icons/chevrons_left_icon.png"/>
+                    <Components:IconButton HorizontalAlignment="Right"  x:Name="buttonImg" Width="50" Height="50" Margin="10,0,10,0"  Click="Button_Click" Image="/Icons/chevrons_left_icon.png">
+                        <Components:IconButton.ToolTip>
+                            <TextBlock>Create user</TextBlock>
+                        </Components:IconButton.ToolTip>
+                    </Components:IconButton>
                 </Grid>
             </Grid>
         </Grid>

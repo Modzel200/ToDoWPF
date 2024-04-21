@@ -50,12 +50,22 @@ public partial class MainWindow : Window
 
     private void ButtonAddUser(object sender, RoutedEventArgs e)
     {
+        if (string.IsNullOrWhiteSpace(userRegister.Text) || string.IsNullOrWhiteSpace(userRegisterPin.Text))
+        {
+            MessageBox.Show("Username / PIN can't be blank.");
+            return;
+        }
         _userService.addUser(userRegister.Text, int.Parse(userRegisterPin.Text));
     }
 
     private void ButtonLogin(object sender, RoutedEventArgs e)
     {
-        if(_userService.loginUser(userLogin.Text, int.Parse(userPin.Text)))
+        if (string.IsNullOrWhiteSpace(userLogin.Text) || string.IsNullOrWhiteSpace(userPin.Text))
+        {
+            MessageBox.Show("Username / PIN can't be blank.");
+            return;
+        }
+        if (_userService.loginUser(userLogin.Text, int.Parse(userPin.Text)))
         {
             isLogged.Text = "Udało się zalogować";
         }
@@ -64,4 +74,39 @@ public partial class MainWindow : Window
             isLogged.Text = "Nie powodzenie";
         }
     }
+
+    private void NumberButton_Click(object sender, RoutedEventArgs e)
+    {
+
+        var source = e.OriginalSource as DependencyObject;
+
+        var button = FindAncestor<Components.IconButton>(source);
+
+        if (button != null)
+        {
+            string value = button.Tag?.ToString(); 
+
+            if (!string.IsNullOrEmpty(value))
+            {
+                userPin.Text += value;
+            }
+        }
+    }
+
+    private T FindAncestor<T>(DependencyObject current)
+        where T : DependencyObject
+    {
+        while (current != null)
+        {
+            if (current is T)
+            {
+                return (T)current;
+            }
+            current = VisualTreeHelper.GetParent(current);
+        }
+        return null;
+    }
+
+
+
 }
