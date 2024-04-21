@@ -10,18 +10,14 @@ namespace ToDo.Services
 {
     public class UserService
     {
-        private readonly ToDoDbContext _context = new ToDoDbContext();
-        private User user = new User();
-        public void loadDatabase()
+        private readonly ToDoDbContext _context;
+        public UserService(ToDoDbContext context)
         {
-            _context.Database.EnsureCreated();
-            _context.Users.Load();
-            _context.Projects.Load();
-            _context.Tasks.Load();
-            _context.SubTasks.Load();
+            this._context = context;
         }
         public void addUser(string login, int pin)
         {
+            User user = new User();
             user.Username = login;
             user.Pin = pin;
             user.isLogged = false;

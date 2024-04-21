@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.Security.Principal;
 using System.Text;
 using System.Windows;
@@ -20,18 +21,42 @@ namespace ToDo;
 /// </summary>
 public partial class MainWindow : Window
 {
+    private DbService _dbService;
     private UserService _userService;
+    private ProjectService _projectService;
+    private TaskService _taskService;
+    private SubtaskService _subtaskService;
 
     public MainWindow()
     {
         InitializeComponent();
+        Closing += OnWindowClosing;
     }
-
+    private void OnWindowClosing(object sender, CancelEventArgs e)
+    {
+        var user = _userService.loggedUser();
+        if(user != null)
+        {
+            _userService.logoutUser(user);
+        }
+    }
+    private void LogoutAllUsersDebug()
+    {
+        var dbContext = _dbService.Context();
+        var users = dbContext.Users;
+        foreach (var elem in users)
+        {
+            elem.isLogged = false;
+            dbContext.Update(elem);
+        }
+        dbContext.SaveChanges();
+    }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        _userService = new UserService();
-        _userService.loadDatabase();
+        _dbService = new DbService();
+        var dbContext = _dbService.Context();
+        _userService = new UserService(dbContext);
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
@@ -67,6 +92,9 @@ public partial class MainWindow : Window
         }
         if (_userService.loginUser(userLogin.Text, int.Parse(userPin.Text)))
         {
+            _projectService = new ProjectService(_dbService.Context(), _userService);
+            _taskService = new TaskService(_dbService.Context(), _userService);
+            _subtaskService = new SubtaskService(_dbService.Context(), _userService);
             isLogged.Text = "Udało się zalogować";
         }
         else

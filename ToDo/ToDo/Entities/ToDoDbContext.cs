@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ToDo.Entities
 {
-    class ToDoDbContext : DbContext
+    public class ToDoDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Project> Projects { get; set; }
