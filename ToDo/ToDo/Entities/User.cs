@@ -12,6 +12,7 @@ namespace ToDo.Entities
         public int Id { get; set; }
         public string Username { get; set; }
         public int Pin { get; set; }
+        public bool isLogged { get; set; }
         public virtual ICollection<Project> Projects { get; private set; } = new ObservableCollection<Project>();
     }
 }

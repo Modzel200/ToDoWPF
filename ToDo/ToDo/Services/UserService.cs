@@ -24,6 +24,7 @@ namespace ToDo.Services
         {
             user.Username = login;
             user.Pin = pin;
+            user.isLogged = false;
             _context.Users.Add(user);
             _context.SaveChanges();
         }
@@ -32,12 +33,31 @@ namespace ToDo.Services
             var user = _context.Users.SingleOrDefault(a=>a.Username == login && a.Pin == pin);
             if(user!=null)
             {
+                user.isLogged = true;
+                _context.Users.Update(user);
+                _context.SaveChanges();
                 return true;
             }
             else
             {
                 return false;
             }
+        }
+
+        public void logoutUser(User user)
+        {
+            user.isLogged = false;
+            _context.Users.Update(user);
+            _context.SaveChanges();
+        }
+        public User loggedUser()
+        {
+            var user = _context.Users.SingleOrDefault(a => a.isLogged == true);
+            if (user!=null)
+            {
+                return user;
+            }
+            return null;
         }
     }
 }
