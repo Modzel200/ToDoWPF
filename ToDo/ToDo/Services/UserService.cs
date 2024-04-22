@@ -20,7 +20,6 @@ namespace ToDo.Services
             User user = new User();
             user.Username = login;
             user.Pin = pin;
-            user.isLogged = false;
             _context.Users.Add(user);
             _context.SaveChanges();
         }
@@ -29,8 +28,18 @@ namespace ToDo.Services
             var user = _context.Users.SingleOrDefault(a=>a.Username == login && a.Pin == pin);
             if(user!=null)
             {
-                user.isLogged = true;
-                _context.Users.Update(user);
+                var loggedUser = _context.LoggedUsers.SingleOrDefault();
+                if(loggedUser == null)
+                {
+                    loggedUser = new LoggedUser()
+                    {
+                        Id = user.Id,
+                        Username = user.Username,
+                    };
+                }
+                loggedUser.Id = user.Id;
+                loggedUser.Username = user.Username;
+                _context.LoggedUsers.Update(loggedUser);
                 _context.SaveChanges();
                 return true;
             }
@@ -42,18 +51,22 @@ namespace ToDo.Services
 
         public void logoutUser(User user)
         {
-            user.isLogged = false;
-            _context.Users.Update(user);
+            _context.LoggedUsers.Remove(_context.LoggedUsers.SingleOrDefault());
             _context.SaveChanges();
         }
         public User loggedUser()
         {
-            var user = _context.Users.SingleOrDefault(a => a.isLogged == true);
-            if (user!=null)
+            var user = _context.LoggedUsers.SingleOrDefault();
+            if(user is null)
             {
-                return user;
+                return null;
             }
-            return null;
+            var result = _context.Users.SingleOrDefault(x => x.Id == user.Id);
+            if (result == null)
+            {
+                return null;
+            }
+            return result;
         }
     }
 }

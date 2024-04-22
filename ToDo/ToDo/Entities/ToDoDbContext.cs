@@ -9,6 +9,7 @@ namespace ToDo.Entities
 {
     public class ToDoDbContext : DbContext
     {
+        public DbSet<LoggedUser> LoggedUsers { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Task> Tasks { get; set; }

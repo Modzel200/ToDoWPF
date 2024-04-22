@@ -37,14 +37,14 @@ namespace ToDo.Services
             }).ToList();
             return projects;
         }
-        public ProjectDto? GetProject(int id)
+        public ProjectDto? GetProject(int projectId)
         {
             var user = _userService.loggedUser();
             if (user == null)
             {
                 return null;
             }
-            var project = _context.Projects.Include(x => x.Tasks).ThenInclude(x => x.SubTasks).Where(x => x.Id == id && x.UserId == user.Id).Select(x => new ProjectDto()
+            var project = _context.Projects.Include(x => x.Tasks).ThenInclude(x => x.SubTasks).Where(x => x.Id == projectId && x.UserId == user.Id).Select(x => new ProjectDto()
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -66,14 +66,14 @@ namespace ToDo.Services
             }).SingleOrDefault();
             return project;
         }
-        public void DeleteProject(int id)
+        public void DeleteProject(int projectId)
         {
             var user = _userService.loggedUser();
             if (user == null)
             {
                 return;
             }
-            var project = _context.Projects.SingleOrDefault(x => x.Id == id && x.UserId == user.Id);
+            var project = _context.Projects.SingleOrDefault(x => x.Id == projectId && x.UserId == user.Id);
             if (project == null)
             {
                 return;

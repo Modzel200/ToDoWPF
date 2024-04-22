@@ -40,17 +40,6 @@ public partial class MainWindow : Window
             _userService.logoutUser(user);
         }
     }
-    private void LogoutAllUsersDebug()
-    {
-        var dbContext = _dbService.Context();
-        var users = dbContext.Users;
-        foreach (var elem in users)
-        {
-            elem.isLogged = false;
-            dbContext.Update(elem);
-        }
-        dbContext.SaveChanges();
-    }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {

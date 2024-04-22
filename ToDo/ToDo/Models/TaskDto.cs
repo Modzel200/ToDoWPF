@@ -16,8 +16,8 @@ namespace ToDo.Models
         public Category? Category { get; set; }
         public PriorityLevel? PriorityLevel { get; set; }
         public DateTime? DeadLine { get; set; }
-        public bool IsDone { get; set; }
+        public bool IsDone { get; set; } = false;
         public ICollection<SubTaskDto>? SubTasks { get; set; } = new ObservableCollection<SubTaskDto>();
-        public float? DoneRatio { get; set; }
+        public float? DoneRatio { get; set; } 
     }
 }
