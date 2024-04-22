@@ -15,13 +15,18 @@ namespace ToDo.Services
         {
             this._context = context;
         }
-        public void addUser(string login, int pin)
+        public bool addUser(string login, int pin)
         {
+            if (_context.Users.SingleOrDefault(x => x.Username == login)!=null)
+            {
+                return false;
+            }
             User user = new User();
             user.Username = login;
             user.Pin = pin;
             _context.Users.Add(user);
             _context.SaveChanges();
+            return true;
         }
         public bool loginUser(string login, int pin)
         {
