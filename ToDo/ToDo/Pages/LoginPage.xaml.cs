@@ -30,6 +30,7 @@ namespace ToDo.Pages
         private TaskService _taskService;
         private SubtaskService _subtaskService;
         private Action revalidateRoute;
+        public bool IsRemembered { get; private set; }
         public LoginPage(Action RenderPage)
         {
             InitializeComponent();
@@ -39,6 +40,17 @@ namespace ToDo.Pages
             addUserForm.Width = 1000;
             this.revalidateRoute = RenderPage;
         }
+
+        private void StayLogged_Checked(object sender, RoutedEventArgs e)
+        {
+           this.IsRemembered = true;
+        }
+
+        private void StayLogged_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.IsRemembered = false;
+        }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

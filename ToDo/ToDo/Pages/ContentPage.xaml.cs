@@ -48,7 +48,7 @@ namespace ToDo.Pages
 
         private void User_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("User Clicked");
+            contentFrame.Navigate(new UserPage());
         }
 
         private void Settings_MouseDown(object sender, MouseButtonEventArgs e)

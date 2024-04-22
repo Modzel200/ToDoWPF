@@ -72,8 +72,9 @@
                 </Grid>
                 <Grid Grid.Row="2">
                     <StackPanel VerticalAlignment="Center">
-                        <CheckBox x:Name="StayLogged" HorizontalAlignment="Center" Margin="0,0,0,10" >
-                        Stay logged
+                        <CheckBox x:Name="StayLogged" HorizontalAlignment="Center" Margin="0,0,0,10"
+                        Checked="StayLogged_Checked" Unchecked="StayLogged_Unchecked">
+                            Stay logged
                         </CheckBox>
 
 
@@ -103,7 +104,7 @@
                         <StackPanel>
                             <TextBlock HorizontalAlignment="Center" Margin="0,0,0,10">PIN</TextBlock>
                             <Components:CustomTextBox x:Name="userRegisterPin" PreviewTextInput="NumberValidationTextBox"/>
-                            <TextBlock Name="loginInUse" TextAlignment="Center" Visibility="Collapsed">Login already in use</TextBlock>
+                            <TextBlock Name="loginInUse" Foreground="Red" TextAlignment="Center" Visibility="Collapsed">Username already in use</TextBlock>
                         </StackPanel>
                     </Grid>
                     <Grid Grid.Row="2">

@@ -29,7 +29,7 @@ public partial class MainWindow : Window
     private ProjectService _projectService;
     private TaskService _taskService;
     private SubtaskService _subtaskService;
-    private bool isRemembered = true;
+    private LoginPage loginPage;
 
     public MainWindow()
     {
@@ -39,7 +39,7 @@ public partial class MainWindow : Window
     private void OnWindowClosing(object sender, CancelEventArgs e)
     {
         var user = _userService.loggedUser();
-        if(user != null && isRemembered)
+        if(user != null && loginPage != null && !loginPage.IsRemembered)
         {
             _userService.logoutUser(user);
         }
@@ -67,8 +67,8 @@ public partial class MainWindow : Window
 
     private void NavigateToLoginPage()
     {
-        var loginPage = new LoginPage(RenderPage);
-        this.Content = loginPage;
+        this.loginPage = new LoginPage(RenderPage);
+        this.Content = this.loginPage;
     }
 
     private void NavigateToContentPage()

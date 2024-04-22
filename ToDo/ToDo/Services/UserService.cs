@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using ToDo.Entities;
+using ToDo.Models;
 
 namespace ToDo.Services
 {
@@ -28,6 +30,38 @@ namespace ToDo.Services
             _context.SaveChanges();
             return true;
         }
+
+        public bool editUser(string login, int pin)
+        {
+            var user = _context.Users.SingleOrDefault(u => u.Id == _context.LoggedUsers.SingleOrDefault().Id);
+            if (user is null || _context.Users.Any(x => x.Username == login))
+            {
+                return false;
+            }
+            
+            user.Username = login;
+            user.Pin = pin;
+            _context.Users.Update(user);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public GetUserDto GetUser()
+        {
+            var user = _context.Users.SingleOrDefault(u => u.Id == _context.LoggedUsers.SingleOrDefault().Id);
+            if (user is null)
+            {
+                return new GetUserDto(){ };
+            }
+
+            return new GetUserDto()
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Pin = user.Pin,
+            };
+        }
+
         public bool loginUser(string login, int pin)
         {
             var user = _context.Users.SingleOrDefault(a=>a.Username == login && a.Pin == pin);

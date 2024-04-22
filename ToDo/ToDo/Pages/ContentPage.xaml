@@ -36,6 +36,8 @@
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Text="Logout" MouseDown="Logout_MouseDown" Margin="5"
                    FontSize="17"/>
         </StackPanel>
-        <Frame Grid.Row="1" x:Name="contentFrame" NavigationUIVisibility="Hidden" VerticalAlignment="Stretch" Margin="0,30,0,0" />
+        <StackPanel Grid.Row="1">
+            <Frame x:Name="contentFrame" NavigationUIVisibility="Hidden"/>
+        </StackPanel>
     </Grid>
 </Page>

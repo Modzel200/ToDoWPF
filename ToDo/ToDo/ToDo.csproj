@@ -26,6 +26,7 @@
       <None Remove="Icons\number_three_fill_icon.png" />
       <None Remove="Icons\number_two_fill_icon.png" />
       <None Remove="Icons\number_zero_fill_icon.png" />
+      <None Remove="Icons\refresh_cw_icon.png" />
       <None Remove="Icons\submit_icon.png" />
       <None Remove="Icons\user_icon.png" />
       <None Remove="Icons\x_icon.png" />
@@ -52,6 +53,7 @@
       <Resource Include="Icons\number_three_fill_icon.png" />
       <Resource Include="Icons\number_two_fill_icon.png" />
       <Resource Include="Icons\number_zero_fill_icon.png" />
+      <Resource Include="Icons\refresh_cw_icon.png" />
       <Resource Include="Icons\submit_icon.png" />
     </ItemGroup>
 
