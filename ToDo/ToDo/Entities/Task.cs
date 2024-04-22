@@ -26,7 +26,7 @@ namespace ToDo.Entities
         public Category? Category { get; set; }
         public PriorityLevel? PriorityLevel { get; set; }
         public DateTime? DeadLine {get; set;}
-        public bool IsDone { get; set; }
+        public bool IsDone { get; set; } = false;
         public int ProjectId { get; set; }
         public virtual Project Project { get; set; }
         public virtual ICollection<SubTask> SubTasks { get; set;} = new ObservableCollection<SubTask>();

@@ -119,21 +119,24 @@ namespace ToDo.Services
             _context.Projects.Update(project);
             _context.SaveChanges();
         }
-        public void ToggleDone(int projectId)
+        public void CheckAndMarkAsDone(int projectId)
         {
             var user = _userService.loggedUser();
             if (user == null)
             {
                 return;
             }
-            var project = _context.Projects.SingleOrDefault(x => x.Id == projectId && x.UserId == user.Id);
+            var project = _context.Projects.Include(x => x.Tasks).SingleOrDefault(x => x.Id == projectId && x.UserId == user.Id);
             if (project == null)
             {
                 return;
             }
-            project.IsDone = !project.IsDone;
-            _context.Projects.Update(project);
-            _context.SaveChanges();
+            if (project.Tasks.All(x => x.IsDone == true))
+            {
+                project.IsDone = true;
+                _context.Projects.Update(project);
+                _context.SaveChanges();
+            }
         }
     }
 }

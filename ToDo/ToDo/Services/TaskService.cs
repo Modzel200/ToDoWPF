@@ -43,14 +43,14 @@ namespace ToDo.Services
             });
             return tasks;
         }
-        public TaskDto? GetTask(int id)
+        public TaskDto? GetTask(int taskId)
         {
             var user = _userService.loggedUser();
             if (user == null)
             {
                 return null;
             }
-            var project = _context.Projects.SingleOrDefault(x => x.Id == id && x.UserId == user.Id);
+            var project = _context.Projects.SingleOrDefault(x => x.Id == taskId && x.UserId == user.Id);
             if(project == null)
             {
                 return null;
@@ -80,67 +80,73 @@ namespace ToDo.Services
             {
                 return;
             }
-            var task = _context.Tasks.SingleOrDefault(x => x.Id == taskId);
-            var project = _context.Projects.SingleOrDefault(x => x.Id == id && x.UserId == user.Id);
-            if (project == null)
+            var task = _context.Tasks.Include(x => x.Project).SingleOrDefault(x => x.Id == taskId && x.Project.UserId == user.Id);
+            if(task == null)
             {
                 return;
             }
-            _context.Projects.Remove(project);
+            _context.Tasks.Remove(task);
             _context.SaveChanges();
         }
-        public void AddProject(CreateProjectDto dto)
+        public void AddTask(CreateTaskDto dto, int projectId)
         {
             var user = _userService.loggedUser();
             if (user == null)
             {
                 return;
             }
-            var project = new Project()
+            var project = _context.Projects.SingleOrDefault(x => x.Id == projectId && x.UserId == user.Id);
+            if(project == null)
+            {
+                return;
+            }
+            var task = new Entities.Task()
             {
                 Name = dto.Name,
                 Description = dto.Description,
-                Color = dto.Color,
+                Category = dto.Category,
+                PriorityLevel = dto.PriorityLevel,
                 DeadLine = dto.DeadLine,
-                User = user,
-                UserId = user.Id,
+                Project = project,
+                ProjectId = project.Id,
             };
-            _context.Projects.Add(project);
+            _context.Tasks.Add(task);
             _context.SaveChanges();
         }
-        public void EditProject(int projectId, CreateProjectDto dto)
+        public void EditTask(int taskId, CreateTaskDto dto)
         {
             var user = _userService.loggedUser();
             if (user == null)
             {
                 return;
             }
-            var project = _context.Projects.SingleOrDefault(x => x.Id == projectId && x.UserId == user.Id);
-            if (project == null)
+            var task = _context.Tasks.Include(x => x.Project).SingleOrDefault(x => x.Id == taskId && x.Project.UserId == user.Id);
+            if(task == null)
             {
                 return;
             }
-            project.Name = dto.Name;
-            project.Description = dto.Description;
-            project.Color = dto.Color;
-            project.DeadLine = dto.DeadLine;
-            _context.Projects.Update(project);
+            task.Name = dto.Name;
+            task.Description = dto.Description;
+            task.Category = dto.Category;
+            task.PriorityLevel = dto.PriorityLevel;
+            task.DeadLine = dto.DeadLine;
+            _context.Tasks.Update(task);
             _context.SaveChanges();
         }
-        public void ToggleDone(int projectId)
+        public void ToggleDone(int taskId)
         {
             var user = _userService.loggedUser();
             if (user == null)
             {
                 return;
             }
-            var project = _context.Projects.SingleOrDefault(x => x.Id == projectId && x.UserId == user.Id);
-            if (project == null)
+            var task = _context.Tasks.Include(x => x.Project).SingleOrDefault(x => x.Id == taskId && x.Project.UserId == user.Id);
+            if (task == null)
             {
                 return;
             }
-            project.IsDone = !project.IsDone;
-            _context.Projects.Update(project);
+            task.IsDone = !task.IsDone;
+            _context.Tasks.Update(task);
             _context.SaveChanges();
         }
     }

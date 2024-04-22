@@ -23,7 +23,7 @@ namespace ToDo.Entities
         public string? Description { get; set; }
         public Color Color { get; set; }
         public DateTime? DeadLine { get; set; }
-        public bool IsDone { get; set; }
+        public bool IsDone { get; set; } = false;
         public int UserId { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<Task> Tasks { get; private set; } = new ObservableCollection<Task>();

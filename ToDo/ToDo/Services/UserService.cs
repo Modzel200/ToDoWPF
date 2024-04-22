@@ -41,10 +41,13 @@ namespace ToDo.Services
                         Id = user.Id,
                         Username = user.Username,
                     };
+                    _context.LoggedUsers.Add(loggedUser);
+                } else
+                {
+                    loggedUser.Id = user.Id;
+                    loggedUser.Username = user.Username;
+                    _context.LoggedUsers.Update(loggedUser);
                 }
-                loggedUser.Id = user.Id;
-                loggedUser.Username = user.Username;
-                _context.LoggedUsers.Update(loggedUser);
                 _context.SaveChanges();
                 return true;
             }
