@@ -2,12 +2,14 @@
 using System.ComponentModel;
 using System.Security.Principal;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -31,6 +33,7 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         Closing += OnWindowClosing;
+        addUserForm.Width = 1000;
     }
     private void OnWindowClosing(object sender, CancelEventArgs e)
     {
@@ -61,14 +64,19 @@ public partial class MainWindow : Window
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        if(addUserForm.Visibility == System.Windows.Visibility.Collapsed)
+        DoubleAnimation startAnimation = new DoubleAnimation(300, new Duration(TimeSpan.FromSeconds(1)));
+        DoubleAnimation endAnimation = new DoubleAnimation(1000, new Duration(TimeSpan.FromSeconds(1)));
+
+        if(addUserForm.Width==1000)
         {
+            addUserForm.BeginAnimation(WidthProperty,startAnimation);
             addUserForm.Visibility = System.Windows.Visibility.Visible;
             buttonImg.Image = new BitmapImage(new Uri("pack://application:,,,/Icons/chevrons_right_icon.png"));
         }
         else
         {   
-            addUserForm.Visibility = System.Windows.Visibility.Collapsed;
+            addUserForm.BeginAnimation(WidthProperty,endAnimation);
+            //addUserForm.Visibility = System.Windows.Visibility.Collapsed;
             buttonImg.Image = new BitmapImage(new Uri("pack://application:,,,/Icons/chevrons_left_icon.png"));
         }
     }
@@ -80,7 +88,18 @@ public partial class MainWindow : Window
             MessageBox.Show("Username / PIN can't be blank.");
             return;
         }
-        _userService.addUser(userRegister.Text, int.Parse(userRegisterPin.Text));
+
+        if (!_userService.addUser(userRegister.Text, int.Parse(userRegisterPin.Text)))
+        {
+            loginInUse.Visibility = Visibility.Visible;
+        }
+        else
+        {
+            loginInUse.Visibility = Visibility.Collapsed;
+            MessageBox.Show("Account created");
+            userRegister.Text = "";
+            userRegisterPin.Text = "";
+        }
     }
 
     private void ButtonLogin(object sender, RoutedEventArgs e)
@@ -119,6 +138,11 @@ public partial class MainWindow : Window
                 userPin.Text += value;
             }
         }
+    }
+    private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+    {
+        Regex regex = new Regex("[^0-9]+");
+        e.Handled = regex.IsMatch(e.Text);
     }
 
     private T FindAncestor<T>(DependencyObject current)
