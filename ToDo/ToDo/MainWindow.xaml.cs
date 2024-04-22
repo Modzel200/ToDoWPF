@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ToDo.Entities;
+using ToDo.Pages;
 using ToDo.Services;
 
 namespace ToDo;
@@ -28,17 +29,17 @@ public partial class MainWindow : Window
     private ProjectService _projectService;
     private TaskService _taskService;
     private SubtaskService _subtaskService;
+    private bool isRemembered = true;
 
     public MainWindow()
     {
         InitializeComponent();
         Closing += OnWindowClosing;
-        addUserForm.Width = 1000;
     }
     private void OnWindowClosing(object sender, CancelEventArgs e)
     {
         var user = _userService.loggedUser();
-        if(user != null)
+        if(user != null && isRemembered)
         {
             _userService.logoutUser(user);
         }
@@ -49,105 +50,31 @@ public partial class MainWindow : Window
         _dbService = new DbService();
         var dbContext = _dbService.Context();
         _userService = new UserService(dbContext);
+        RenderPage();
     }
 
-    private void Button_Click(object sender, RoutedEventArgs e)
+    private void RenderPage()
     {
-        DoubleAnimation startAnimation = new DoubleAnimation(300, new Duration(TimeSpan.FromSeconds(1)));
-        DoubleAnimation endAnimation = new DoubleAnimation(1000, new Duration(TimeSpan.FromSeconds(1)));
-
-        if(addUserForm.Width==1000)
+        if (_userService.loggedUser() != null)
         {
-            addUserForm.BeginAnimation(WidthProperty,startAnimation);
-            addUserForm.Visibility = System.Windows.Visibility.Visible;
-            buttonImg.Image = new BitmapImage(new Uri("pack://application:,,,/Icons/chevrons_right_icon.png"));
-        }
-        else
-        {   
-            addUserForm.BeginAnimation(WidthProperty,endAnimation);
-            //addUserForm.Visibility = System.Windows.Visibility.Collapsed;
-            buttonImg.Image = new BitmapImage(new Uri("pack://application:,,,/Icons/chevrons_left_icon.png"));
-        }
-    }
-
-    private void ButtonAddUser(object sender, RoutedEventArgs e)
-    {
-        if (string.IsNullOrWhiteSpace(userRegister.Text) || string.IsNullOrWhiteSpace(userRegisterPin.Text))
-        {
-            MessageBox.Show("Username / PIN can't be blank.");
-            return;
-        }
-
-        if (!_userService.addUser(userRegister.Text, int.Parse(userRegisterPin.Text)))
-        {
-            loginInUse.Visibility = Visibility.Visible;
+            NavigateToContentPage();
         }
         else
         {
-            loginInUse.Visibility = Visibility.Collapsed;
-            MessageBox.Show("Account created");
-            userRegister.Text = "";
-            userRegisterPin.Text = "";
+            NavigateToLoginPage();
         }
     }
 
-    private void ButtonLogin(object sender, RoutedEventArgs e)
+    private void NavigateToLoginPage()
     {
-        if (string.IsNullOrWhiteSpace(userLogin.Text) || string.IsNullOrWhiteSpace(userPin.Text))
-        {
-            MessageBox.Show("Username / PIN can't be blank.");
-            return;
-        }
-        if (_userService.loginUser(userLogin.Text, int.Parse(userPin.Text)))
-        {
-            _projectService = new ProjectService(_dbService.Context(), _userService);
-            _taskService = new TaskService(_dbService.Context(), _userService);
-            _subtaskService = new SubtaskService(_dbService.Context(), _userService);
-            isLogged.Text = "Udało się zalogować";
-        }
-        else
-        {
-            isLogged.Text = "Nie powodzenie";
-        }
+        var loginPage = new LoginPage(RenderPage);
+        this.Content = loginPage;
     }
 
-    private void NumberButton_Click(object sender, RoutedEventArgs e)
+    private void NavigateToContentPage()
     {
-
-        var source = e.OriginalSource as DependencyObject;
-
-        var button = FindAncestor<Components.IconButton>(source);
-
-        if (button != null)
-        {
-            string value = button.Tag?.ToString(); 
-
-            if (!string.IsNullOrEmpty(value))
-            {
-                userPin.Text += value;
-            }
-        }
+        var contentPage = new ContentPage(RenderPage);
+        this.Content = contentPage;
     }
-    private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
-    {
-        Regex regex = new Regex("[^0-9]+");
-        e.Handled = regex.IsMatch(e.Text);
-    }
-
-    private T FindAncestor<T>(DependencyObject current)
-        where T : DependencyObject
-    {
-        while (current != null)
-        {
-            if (current is T)
-            {
-                return (T)current;
-            }
-            current = VisualTreeHelper.GetParent(current);
-        }
-        return null;
-    }
-
-
 
 }
