@@ -30,11 +30,19 @@
                     <Components:CustomTextBox HorizontalAlignment="Center" x:Name="pinEdit" PreviewTextInput="NumberValidationTextBox" Margin="0,0,0,20"/>
                     <StackPanel Orientation="Horizontal">
                         <Components:CustomButton HorizontalAlignment="Center" Width="100" Height="35" Click="ButtonEdit" Text="Edit"/>
-                        <Components:IconButton HorizontalAlignment="Center"  Width="35" Height="35" Click="ButtonRefresh" Image="../Icons/refresh_cw_icon.png"/>
+                        <Components:IconButton HorizontalAlignment="Center"  Width="35" Height="35" Click="ButtonRefresh" Image="../Icons/refresh_cw_icon.png">
+                            <Components:IconButton.ToolTip>
+                                <TextBlock>Refresh user info</TextBlock>
+                            </Components:IconButton.ToolTip>
+                        </Components:IconButton>
                     </StackPanel>
                 </StackPanel>
             </Border>
         </Grid>
-        <Components:IconButton Width="30" Height="30" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Image="../Icons/x_icon.png" Click="ButtonDelete"/>
+        <Components:IconButton Width="30" Height="30" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Image="../Icons/trash_2_icon.png" Click="ButtonDelete">
+            <Components:IconButton.ToolTip>
+                <TextBlock>Delete current user</TextBlock>
+            </Components:IconButton.ToolTip>
+        </Components:IconButton>
     </Grid>
 </Page>

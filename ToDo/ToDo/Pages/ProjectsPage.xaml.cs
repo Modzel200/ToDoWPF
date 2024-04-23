@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ToDo.Components;
 using ToDo.Models;
 using ToDo.Services;
 
@@ -58,6 +59,36 @@ namespace ToDo.Pages
                                            $"Color: {project.Color}\n" +
                                            $"Is Done: {project.IsDone}\n" +
                                            $"Done Ratio: {project.DoneRatio}";
+        }
+
+        private void AddProjectButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddProjectWindow addProjectWindow = new AddProjectWindow();
+            addProjectWindow.Closed += AddProjectWindow_Closed;
+            addProjectWindow.Show();
+        }
+
+        private void DeleteProjectButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedProject = ProjectListBox.SelectedItem as ProjectDto;
+            if (selectedProject == null)
+            {
+                return;
+            }
+
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this project?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                ProjectListBox.SelectedIndex = 0;
+                _projectService.DeleteProject(selectedProject.Id);
+                LoadProjects();
+            }
+        }
+
+        private void AddProjectWindow_Closed(object sender, EventArgs e)
+        {
+            LoadProjects();
         }
     }
 }

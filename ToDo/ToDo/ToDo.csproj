@@ -16,6 +16,7 @@
       <None Remove="Icons\chevron_left_icon.png" />
       <None Remove="Icons\chevron_right_arrow_icon.png" />
       <None Remove="Icons\chevron_up_icon.png" />
+      <None Remove="Icons\logo.png" />
       <None Remove="Icons\number_eight_fill_icon.png" />
       <None Remove="Icons\number_five_fill_icon.png" />
       <None Remove="Icons\number_four_fill_icon.png" />
@@ -26,14 +27,17 @@
       <None Remove="Icons\number_three_fill_icon.png" />
       <None Remove="Icons\number_two_fill_icon.png" />
       <None Remove="Icons\number_zero_fill_icon.png" />
+      <None Remove="Icons\plus_add_icon.png" />
       <None Remove="Icons\refresh_cw_icon.png" />
       <None Remove="Icons\submit_icon.png" />
+      <None Remove="Icons\trash_2_icon.png" />
       <None Remove="Icons\user_icon.png" />
       <None Remove="Icons\x_icon.png" />
       <None Remove="Icons\_settings_gear_icon.png" />
     </ItemGroup>
 
     <ItemGroup>
+      <Resource Include="Icons\logo.png" />
       <Resource Include="Icons\number_one_light_icon.png" />
     </ItemGroup>
 
@@ -53,6 +57,7 @@
       <Resource Include="Icons\number_three_fill_icon.png" />
       <Resource Include="Icons\number_two_fill_icon.png" />
       <Resource Include="Icons\number_zero_fill_icon.png" />
+      <Resource Include="Icons\plus_add_icon.png" />
       <Resource Include="Icons\refresh_cw_icon.png" />
       <Resource Include="Icons\submit_icon.png" />
     </ItemGroup>
@@ -65,6 +70,7 @@
 
     <ItemGroup>
       <Resource Include="Icons\chevrons_right_icon.png" />
+      <Resource Include="Icons\trash_2_icon.png" />
       <Resource Include="Icons\user_icon.png" />
       <Resource Include="Icons\x_icon.png" />
       <Resource Include="Icons\_settings_gear_icon.png" />

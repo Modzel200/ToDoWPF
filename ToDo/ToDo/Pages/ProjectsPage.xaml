@@ -1,4 +1,4 @@
-﻿<Page x:Class="ToDo.Pages.ProjectsPage"
+﻿<Page x:Name="page" x:Class="ToDo.Pages.ProjectsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -17,13 +17,22 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <StackPanel Orientation="Horizontal">
+            <StackPanel x:Name="stackPanel" Orientation="Horizontal" >
                 <StackPanel MinWidth="200">
-                    <StackPanel Orientation="Horizontal" MinWidth="200">
-                        <Components:IconButton Width="30" Height="25" Image="../Icons/submit_icon.png"></Components:IconButton>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Projects</TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                        <Components:IconButton Width="30" Height="25" Image="../Icons/plus_add_icon.png" Click="AddProjectButton_Click" Margin="15,10,15,10">
+                            <Components:IconButton.ToolTip>
+                                <TextBlock>Add Project</TextBlock>
+                            </Components:IconButton.ToolTip>
+                        </Components:IconButton>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17" FontWeight="Bold">Projects</TextBlock>
+                        <Components:IconButton Width="30" Height="25" Image="../Icons/trash_2_icon.png" Click="DeleteProjectButton_Click" Margin="15,10,15,10">
+                            <Components:IconButton.ToolTip>
+                                <TextBlock>Delete Project</TextBlock>
+                            </Components:IconButton.ToolTip>
+                        </Components:IconButton>
                     </StackPanel>
-                    <ListBox x:Name="ProjectListBox" SelectionChanged="ProjectListBox_SelectionChanged">
+                    <ListBox MinHeight="290" x:Name="ProjectListBox" SelectionChanged="ProjectListBox_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}" />
@@ -37,9 +46,6 @@
                 </StackPanel>
 
             </StackPanel>
-            <Popup>
-                
-            </Popup>
         </Grid>
     </Grid>
 </Page>

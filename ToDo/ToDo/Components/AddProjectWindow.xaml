@@ -1,0 +1,47 @@
+﻿<Window x:Class="ToDo.Components.AddProjectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ToDo.Components"
+        xmlns:Entities="clr-namespace:ToDo.Entities"
+        mc:Ignorable="d"
+        Title="Add Project" MinHeight="400" MinWidth="320" MaxHeight="400" MaxWidth="320" Icon="/Icons/logo.png">
+    
+    <StackPanel>
+        <StackPanel Background="#FF964F">
+            <TextBlock Foreground="#ffffff" HorizontalAlignment="Center" FontSize="17" FontWeight="Bold" Margin="10">Add a Project</TextBlock>
+        </StackPanel>
+        <StackPanel>
+            <TextBlock Text="Name:" Margin="5"/>
+            <TextBox x:Name="NameTextBox" Grid.Row="0" Margin="5"/>
+        </StackPanel>
+
+        <StackPanel>
+            <TextBlock Text="Description:" Margin="5"/>
+            <TextBox Height="50" x:Name="DescriptionTextBox" Grid.Row="1" Margin="5"/>
+        </StackPanel>
+
+        <StackPanel>
+            <TextBlock Text="Deadline:" Margin="5"/>
+            <DatePicker x:Name="DeadLineDatePicker" Grid.Row="2" Margin="5"/>
+        </StackPanel>
+
+        <StackPanel>
+            <TextBlock Text="Color:" Margin="5"/>
+            <ComboBox x:Name="ColorComboBox" Grid.Row="3" Margin="5">
+                <ComboBoxItem Content="Blue" Tag="{x:Static Entities:Color.Blue}"/>
+                <ComboBoxItem Content="Green" Tag="{x:Static Entities:Color.Green}"/>
+                <ComboBoxItem Content="Purple" Tag="{x:Static Entities:Color.Purple}"/>
+                <ComboBoxItem Content="Orange" Tag="{x:Static Entities:Color.Orange}"/>
+                <ComboBoxItem Content="Red" Tag="{x:Static Entities:Color.Red}"/>
+                <ComboBoxItem Content="Yellow" Tag="{x:Static Entities:Color.Yellow}"/>
+            </ComboBox>
+        </StackPanel>
+
+
+            <local:CustomButton Width="200" Text="Add Project" Click="AddProjectButton_Click" Margin="5"/>
+ 
+ 
+    </StackPanel>
+</Window>
