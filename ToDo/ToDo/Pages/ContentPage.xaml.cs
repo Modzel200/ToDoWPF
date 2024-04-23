@@ -27,6 +27,7 @@ namespace ToDo.Pages
         private TaskService _taskService;
         private SubtaskService _subtaskService;
         private Action revalidateRoute;
+        private Page currentPage;
         public ContentPage(Action RenderPage)
         {
             InitializeComponent();
@@ -34,6 +35,9 @@ namespace ToDo.Pages
             var dbContext = _dbService.Context();
             _userService = new UserService(dbContext);
             this.revalidateRoute = RenderPage;
+            contentFrame.Navigate(new ProjectsPage());
+            currentPage = new ProjectsPage();
+            SetActiveLink(currentPage.GetType());
         }
 
         private void Logout_MouseDown(object sender, MouseButtonEventArgs e)
@@ -43,12 +47,18 @@ namespace ToDo.Pages
 
         private void Projects_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Projects Clicked");
+            contentFrame.Navigate(new ProjectsPage());
+            currentPage = new ProjectsPage();
+            SetActiveLink(currentPage.GetType());
+            contentFrame.Navigate(currentPage);
         }
 
         private void User_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            contentFrame.Navigate(new UserPage());
+            contentFrame.Navigate(new UserPage(revalidateRoute));
+            currentPage = new UserPage(revalidateRoute);
+            SetActiveLink(currentPage.GetType());
+            contentFrame.Navigate(currentPage);
         }
 
         private void Settings_MouseDown(object sender, MouseButtonEventArgs e)
@@ -64,6 +74,18 @@ namespace ToDo.Pages
                 _userService.logoutUser(user);
             }
             revalidateRoute?.Invoke();
+        }
+
+        private void SetActiveLink(Type pageType)
+        {
+            ProjectsTextBlock.Foreground = Brushes.White;
+            UserTextBlock.Foreground = Brushes.White;
+
+            if (pageType == typeof(ProjectsPage))
+                ProjectsTextBlock.Foreground = Brushes.Black;
+            else if (pageType == typeof(UserPage))
+                UserTextBlock.Foreground = Brushes.Black;
+
         }
     }
 }

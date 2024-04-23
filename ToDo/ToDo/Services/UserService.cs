@@ -46,6 +46,19 @@ namespace ToDo.Services
             return true;
         }
 
+        public bool deleteUser(int id)
+        {
+            var user = _context.Users.SingleOrDefault(u => u.Id == id);
+            if (user is null)
+            {
+                return false;
+            }
+            logoutUser(user);
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+            return true;
+        }
+
         public GetUserDto GetUser()
         {
             var user = _context.Users.SingleOrDefault(u => u.Id == _context.LoggedUsers.SingleOrDefault().Id);

@@ -10,13 +10,16 @@
       Title="ContentPage">
 
     <Page.Resources>
-        <Style TargetType="TextBlock">
+        <Style x:Key="NavbarTextStyle" TargetType="TextBlock">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="TextDecorations" Value="None"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="TextDecorations" Value="Underline"/>
                 </Trigger>
+                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </DataTrigger>
             </Style.Triggers>
         </Style>
     </Page.Resources>
@@ -28,13 +31,14 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#FF964F" HorizontalAlignment="Stretch">
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="Projects" MouseDown="Projects_MouseDown" Margin="20,5,20,5"
-                   FontSize="17"/>
+           FontSize="17" Style="{StaticResource NavbarTextStyle}" x:Name="ProjectsTextBlock"/>
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="User" MouseDown="User_MouseDown" Margin="5,5,20,5"
-                   FontSize="17"/>
+           FontSize="17" Style="{StaticResource NavbarTextStyle}" x:Name="UserTextBlock"/>
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="Settings" MouseDown="Settings_MouseDown" Margin="5,5,20,5"
-                   FontSize="17"/>
+           FontSize="17" Style="{StaticResource NavbarTextStyle}" x:Name="SettingsTextBlock"/>
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Text="Logout" MouseDown="Logout_MouseDown" Margin="5"
-                   FontSize="17"/>
+           FontSize="17" Style="{StaticResource NavbarTextStyle}"/>
+
         </StackPanel>
         <StackPanel Grid.Row="1">
             <Frame x:Name="contentFrame" NavigationUIVisibility="Hidden"/>

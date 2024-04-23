@@ -24,12 +24,14 @@ namespace ToDo.Pages
     {
         private DbService _dbService;
         private UserService _userService;
-        public UserPage()
+        private Action revalidateRoute;
+        public UserPage(Action RevalidateRoute)
         {
             InitializeComponent();
             _dbService = new DbService();
             var dbContext = _dbService.Context();
             _userService = new UserService(dbContext);
+            this.revalidateRoute = RevalidateRoute;
             RenderInputs();
         }
 
@@ -61,7 +63,19 @@ namespace ToDo.Pages
         {
             RenderInputs();
         }
-
+        private void ButtonDelete(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete the user?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                var userInfo = _userService.GetUser();
+                bool isDeleted = _userService.deleteUser(userInfo.Id);
+                if (isDeleted)
+                {
+                    revalidateRoute?.Invoke();
+                } 
+            }
+        }
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");

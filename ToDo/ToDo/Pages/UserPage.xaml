@@ -35,5 +35,6 @@
                 </StackPanel>
             </Border>
         </Grid>
+        <Components:IconButton Width="30" Height="30" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Image="../Icons/x_icon.png" Click="ButtonDelete"/>
     </Grid>
 </Page>
