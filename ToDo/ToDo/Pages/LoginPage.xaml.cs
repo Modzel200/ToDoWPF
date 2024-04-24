@@ -15,6 +15,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ToDo.Pages.Modals;
 using ToDo.Services;
 
 namespace ToDo.Pages
@@ -75,7 +76,19 @@ namespace ToDo.Pages
         {
             if (string.IsNullOrWhiteSpace(userRegister.Text) || string.IsNullOrWhiteSpace(userRegisterPin.Text))
             {
-                MessageBox.Show("Username / PIN can't be blank.");
+                var blankInput = new BlankRegistration();
+                var blankInputModal = new Window
+                {
+                    Title = "Informacja",
+                    Content = blankInput,
+                    SizeToContent = SizeToContent.WidthAndHeight,
+                    ResizeMode = ResizeMode.NoResize,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                    Owner = Application.Current.MainWindow,
+                    WindowStyle = WindowStyle.ToolWindow,
+                    Topmost = true
+                };
+                blankInputModal.Show();
                 return;
             }
 
@@ -86,7 +99,20 @@ namespace ToDo.Pages
             else
             {
                 loginInUse.Visibility = Visibility.Collapsed;
-                MessageBox.Show("Account created");
+                //MessageBox.Show("Account created");
+                var accountCreated = new AccountCreated();
+                var accountCreatedModal = new Window
+                {
+                    Title = "Informacja",
+                    Content = accountCreated,
+                    SizeToContent = SizeToContent.WidthAndHeight,
+                    ResizeMode = ResizeMode.NoResize,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                    Owner = Application.Current.MainWindow,
+                    WindowStyle = WindowStyle.ToolWindow,
+                    Topmost = true
+                };
+                accountCreatedModal.ShowDialog();
                 userRegister.Text = "";
                 userRegisterPin.Text = "";
             }
@@ -96,7 +122,19 @@ namespace ToDo.Pages
         {
             if (string.IsNullOrWhiteSpace(userLogin.Text) || string.IsNullOrWhiteSpace(userPin.Text))
             {
-                MessageBox.Show("Username / PIN can't be blank.");
+                var blankInput = new BlankRegistration();
+                var blankInputModal = new Window
+                {
+                    Title = "Informacja",
+                    Content = blankInput,
+                    SizeToContent = SizeToContent.WidthAndHeight,
+                    ResizeMode = ResizeMode.NoResize,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                    Owner = Application.Current.MainWindow,
+                    WindowStyle = WindowStyle.ToolWindow,
+                    Topmost = true
+                };
+                blankInputModal.Show();
                 return;
             }
             if (_userService.loginUser(userLogin.Text, int.Parse(userPin.Text)))
