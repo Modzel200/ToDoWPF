@@ -35,7 +35,7 @@ namespace ToDo.Services
                 Id = x.Id,
                 Description = x.Description,
                 isDone = x.isDone,
-            });
+            }).ToList();
             return subtasks;
         }
         public SubTaskDto? GetSubTask(int subtaskId)

@@ -40,7 +40,7 @@ namespace ToDo.Services
                 DeadLine = x.DeadLine,
                 IsDone = x.IsDone,
                 DoneRatio = x.SubTasks.Where(y => y.isDone == true).Count()/x.SubTasks.Count(),
-            });
+            }).ToList();
             return tasks;
         }
         public TaskDto? GetTask(int taskId)

@@ -40,7 +40,7 @@ namespace ToDo.Pages
 
         private void LoadTasks()
         {
-            var tasks = _taskService.GetAllTasks(_projectId).ToList();
+            var tasks = _taskService.GetAllTasks(_projectId);
             TaskListBox.ItemsSource = tasks;
         }
 
