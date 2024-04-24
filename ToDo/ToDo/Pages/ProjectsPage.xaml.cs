@@ -40,6 +40,7 @@ namespace ToDo.Pages
         {
             var projects = _projectService.GetAllProjects();
             ProjectListBox.ItemsSource = projects;
+            ProjectListBox.SelectedIndex = 0;
         }
 
         private void ProjectListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -47,19 +48,8 @@ namespace ToDo.Pages
             var selectedProject = ProjectListBox.SelectedItem as ProjectDto;
             if (selectedProject != null)
             {
-                DisplayProjectDetails(selectedProject);
                 EnableTaskComponent(selectedProject.Id);
             }
-        }
-
-        private void DisplayProjectDetails(ProjectDto project)
-        {
-            ProjectDetailsTextBlock.Text = $"Name: {project.Name}\n" +
-                                           $"Description: {project.Description}\n" +
-                                           $"Deadline: {project.DeadLine}\n" +
-                                           $"Color: {project.Color}\n" +
-                                           $"Is Done: {project.IsDone}\n" +
-                                           $"Done Ratio: {project.DoneRatio}";
         }
 
         private void EnableTaskComponent(int projectId)

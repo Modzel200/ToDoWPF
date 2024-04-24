@@ -5,10 +5,16 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ToDo.Pages"
       xmlns:Components="clr-namespace:ToDo.Components"
+      xmlns:Converter="clr-namespace:ToDo.Converter"
       mc:Ignorable="d" 
       Background="#ffffff"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProjectsPage">
+
+    <Page.Resources>
+        <Converter:ColorEnumToBrushConverter x:Key="ColorConverter"/>
+        <Converter:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -32,17 +38,30 @@
                             </Components:IconButton.ToolTip>
                         </Components:IconButton>
                     </StackPanel>
-                    <ListBox MinHeight="290" x:Name="ProjectListBox" SelectionChanged="ProjectListBox_SelectionChanged">
+                    <ListBox x:Name="ProjectListBox" SelectionChanged="ProjectListBox_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="290 ">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Width="15" Height="15" Margin="5" VerticalAlignment="Center" Fill="{Binding Color, Converter={StaticResource ColorConverter}}" RadiusX="5" RadiusY="5"/>
+                                    <StackPanel>
+                                        <TextBlock FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"  Margin="5,0,5,0"   Text="{Binding Name}" >
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsDone}" Value="True">
+                                                            <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,0"  Text="{Binding DeadLine}" Visibility="{Binding DeadLine, Converter={StaticResource NullToVisibilityConverter}}"/>
+                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="5,0,5,0"  Text="{Binding Description}" Visibility="{Binding Description, Converter={StaticResource NullToVisibilityConverter}}"/>
+                                    </StackPanel>
+                                </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                </StackPanel>
-                <StackPanel >
-                    <TextBlock Text="Project Details" FontWeight="Bold" Margin="10"/>
-                    <TextBlock x:Name="ProjectDetailsTextBlock" Margin="10"/>
                 </StackPanel>
                 <StackPanel x:Name="TaskListHolder" Orientation="Horizontal" MinWidth="200">
                     <Frame x:Name="taskFrame" NavigationUIVisibility="Hidden"/>
