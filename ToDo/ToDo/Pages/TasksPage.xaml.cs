@@ -1,32 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ToDo.Components;
 using ToDo.Models;
 using ToDo.Services;
 
 namespace ToDo.Pages
 {
-    /// <summary>
-    /// Logika interakcji dla klasy TasksPage.xaml
-    /// </summary>
     public partial class TasksPage : Page
     {
         private DbService _dbService;
         private UserService _userService;
         private TaskService _taskService;
         private int _projectId;
+
         public TasksPage(int projectId)
         {
             InitializeComponent();
@@ -41,27 +29,23 @@ namespace ToDo.Pages
         private void LoadTasks()
         {
             var tasks = _taskService.GetAllTasks(_projectId);
-            TaskListBox.ItemsSource = tasks;
-        }
-
-        private void TaskListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedTask = TaskListBox.SelectedItem as TaskDto;
-            if (selectedTask != null)
+            // Since adding children manually, have to clear before rendering again
+            TaskStackPanel.Children.Clear();
+            foreach (var task in tasks)
             {
-                DisplayTaskDetails(selectedTask);
+                AddTaskToPanel(task);
             }
         }
 
-        private void DisplayTaskDetails(TaskDto task)
+        private void AddTaskToPanel(TaskDto task)
         {
-            TaskDetailsTextBlock.Text = $"Name: {task.Name}\n" +
-                                           $"Description: {task.Description}\n" +
-                                           $"Deadline: {task.DeadLine}\n" +
-                                           $"Color: {task.Category}\n" +
-                                           $"Is Done: {task.PriorityLevel}\n" +
-                                           $"Done Ratio: {task.DoneRatio}";
+            var taskBorder = (DataTemplate)FindResource("TaskItemTemplate");
+            var taskContent = taskBorder.LoadContent() as FrameworkElement;
+            var contentControl = new ContentControl { Content = taskContent };
+            contentControl.DataContext = task;
+            TaskStackPanel.Children.Add(contentControl);
         }
+
 
         private void AddTaskButton_Click(object sender, RoutedEventArgs e)
         {
@@ -72,20 +56,48 @@ namespace ToDo.Pages
 
         private void DeleteTaskButton_Click(object sender, RoutedEventArgs e)
         {
-            var selectedTask = TaskListBox.SelectedItem as TaskDto;
-            if (selectedTask == null)
-            {
-                return;
-            }
+            var source = e.OriginalSource as DependencyObject;
 
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this task?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var button = FindAncestor<Components.IconButton>(source);
 
-            if (result == MessageBoxResult.Yes)
+
+                if (button != null && button.Tag is int Id)
+                {
+
+                    MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this task?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        _taskService.DeleteTask(Id);
+                        LoadTasks();
+                    }   
+                }   
+        }
+
+        private void CheckBox_ToggleDone(object sender, RoutedEventArgs e)
+        {
+            var source = e.OriginalSource as DependencyObject;
+            var checkbox = FindAncestor<CheckBox>(source);
+
+            if (checkbox != null && checkbox.Tag is int Id)
             {
-                TaskListBox.SelectedIndex = 0;
-                _taskService.DeleteTask(selectedTask.Id);
+                _taskService.ToggleDone(Id);
                 LoadTasks();
             }
+        }
+
+        private T FindAncestor<T>(DependencyObject current)
+            where T : DependencyObject
+        {
+            while (current != null)
+            {
+                if (current is T)
+                {
+                    return (T)current;
+                }
+                current = VisualTreeHelper.GetParent(current);
+            }
+            return null;
         }
 
         private void AddTaskWindow_Closed(object sender, EventArgs e)
