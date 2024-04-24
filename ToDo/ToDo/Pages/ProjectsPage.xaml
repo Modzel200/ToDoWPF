@@ -44,7 +44,9 @@
                     <TextBlock Text="Project Details" FontWeight="Bold" Margin="10"/>
                     <TextBlock x:Name="ProjectDetailsTextBlock" Margin="10"/>
                 </StackPanel>
-
+                <StackPanel x:Name="TaskListHolder" Orientation="Horizontal" MinWidth="200">
+                    <Frame x:Name="taskFrame" NavigationUIVisibility="Hidden"/>
+                </StackPanel>
             </StackPanel>
         </Grid>
     </Grid>

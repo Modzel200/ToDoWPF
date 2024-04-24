@@ -48,6 +48,7 @@ namespace ToDo.Pages
             if (selectedProject != null)
             {
                 DisplayProjectDetails(selectedProject);
+                EnableTaskComponent(selectedProject.Id);
             }
         }
 
@@ -59,6 +60,11 @@ namespace ToDo.Pages
                                            $"Color: {project.Color}\n" +
                                            $"Is Done: {project.IsDone}\n" +
                                            $"Done Ratio: {project.DoneRatio}";
+        }
+
+        private void EnableTaskComponent(int projectId)
+        {
+            taskFrame.Content = new TasksPage(projectId);
         }
 
         private void AddProjectButton_Click(object sender, RoutedEventArgs e)
