@@ -38,9 +38,14 @@
                         <TextBlock Text="{Binding DeadLine}" Margin="0 0 0 5"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right">
-                        <Components:IconButton Width="30" Height="25" Image="../Icons/trash_2_icon.png" Click="DeleteTaskButton_Click" Margin="15,10,15,10" Tag="{Binding Id}">
+                        <Components:IconButton Width="30" Height="25" Image="../Icons/trash_2_icon.png" Click="DeleteTaskButton_Click" Margin="15,5,15,5" Tag="{Binding Id}">
                             <Components:IconButton.ToolTip>
                                 <TextBlock>Delete Task</TextBlock>
+                            </Components:IconButton.ToolTip>
+                        </Components:IconButton>
+                        <Components:IconButton Width="30" Height="25" Image="../Icons/align_justify_icon.png" Click="SummaryButton_Click" Margin="15,5,15,5" Tag="{Binding Id}">
+                            <Components:IconButton.ToolTip>
+                                <TextBlock>Show summary</TextBlock>
                             </Components:IconButton.ToolTip>
                         </Components:IconButton>
                     </StackPanel>
