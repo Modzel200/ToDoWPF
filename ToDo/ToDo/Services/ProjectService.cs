@@ -53,7 +53,7 @@ namespace ToDo.Services
                     baseQuery.OrderBy(selectedColumn)
                     : baseQuery.OrderByDescending(selectedColumn);
 
-            return baseQuery;
+            return baseQuery.ToList();
         }
         public ProjectDto? GetProject(int projectId)
         {

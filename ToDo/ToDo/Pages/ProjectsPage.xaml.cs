@@ -38,7 +38,7 @@ namespace ToDo.Pages
 
         private void LoadProjects()
         {
-            var projects = _projectService.GetAllProjects();
+            var projects = _projectService.GetAllProjects(new ProjectFilterSortDto());
             ProjectListBox.ItemsSource = projects;
             ProjectListBox.SelectedIndex = 0;
         }

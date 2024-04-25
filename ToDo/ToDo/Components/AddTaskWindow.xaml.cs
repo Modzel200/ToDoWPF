@@ -21,6 +21,7 @@ namespace ToDo.Components
         private readonly DbService _dbService;
         private readonly UserService _userService;
         private readonly TaskService _taskService;
+        private readonly ProjectService _projectService;
         private readonly int _projectId;
 
         public AddTaskWindow(int projectId)
@@ -29,7 +30,7 @@ namespace ToDo.Components
             _dbService = new DbService();
             var dbContext = _dbService.Context();
             _userService = new UserService(dbContext);
-            _taskService = new TaskService(dbContext, _userService);
+            _taskService = new TaskService(dbContext, _userService, _projectService);
             _projectId = projectId;
         }
 

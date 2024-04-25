@@ -140,7 +140,7 @@ namespace ToDo.Pages
             if (_userService.loginUser(userLogin.Text, int.Parse(userPin.Text)))
             {
                 _projectService = new ProjectService(_dbService.Context(), _userService);
-                _taskService = new TaskService(_dbService.Context(), _userService);
+                _taskService = new TaskService(_dbService.Context(), _userService, _projectService);
                 _subtaskService = new SubtaskService(_dbService.Context(), _userService);
                 revalidateRoute?.Invoke();
             }
