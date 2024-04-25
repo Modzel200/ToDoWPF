@@ -106,5 +106,19 @@ namespace ToDo.Pages
         {
             LoadTasks();
         }
+
+        private void SummaryButton_Click(object sender, RoutedEventArgs e)
+        {
+            var source = e.OriginalSource as DependencyObject;
+
+            var button = FindAncestor<Components.IconButton>(source);
+
+
+            if (button != null && button.Tag is int Id)
+            {
+
+                NavigationService.Navigate(new SubtasksPage(Id, this));
+            }
+        }
     }
 }

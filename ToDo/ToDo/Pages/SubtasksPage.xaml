@@ -1,0 +1,72 @@
+﻿<Page x:Class="ToDo.Pages.SubtasksPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ToDo.Pages"
+      xmlns:Components="clr-namespace:ToDo.Components"
+      mc:Ignorable="d" 
+      Background="White"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SubtasksPage">
+
+    <Page.Resources>
+        <DataTemplate x:Key="SubtaskItemTemplate">
+            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Margin="5" Background="LightGray">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="9*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="5" Orientation="Horizontal">
+                        <CheckBox Margin="0 0 0 5" Click="CheckBox_ToggleDone" Tag="{Binding Id}" IsChecked="{Binding IsDone, Mode=TwoWay}">
+                            <CheckBox.Content>
+                                <TextBlock Text="{Binding Description}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsDone}" Value="True">
+                                                    <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </CheckBox.Content>
+                        </CheckBox>
+                        <Components:IconButton HorizontalAlignment="Right" Width="30" Height="25" Image="../Icons/trash_2_icon.png" Click="DeleteTaskButton_Click" Margin="15,5,15,5" Tag="{Binding Id}">
+                            <Components:IconButton.ToolTip>
+                                <TextBlock>Delete Task</TextBlock>
+                            </Components:IconButton.ToolTip>
+                        </Components:IconButton>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+            <Components:IconButton Width="30" Height="30" Image="../Icons/chevron_left_icon.png" Click="BackButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
+                <Components:IconButton.ToolTip>
+                    <TextBlock>Go back</TextBlock>
+                </Components:IconButton.ToolTip>
+            </Components:IconButton>
+            <Components:IconButton Width="200" Height="25" Image="../Icons/plus_add_icon.png" Click="AddSubtaskButton_Click" Text="New Task" Margin="15,10,15,10">
+                <Components:IconButton.ToolTip>
+                    <TextBlock>Add Task</TextBlock>
+                </Components:IconButton.ToolTip>
+            </Components:IconButton>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" MaxHeight="290" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="SubtaskStackPanel" Margin="10,0,10,0"/>
+        </ScrollViewer>
+    </Grid>
+</Page>
