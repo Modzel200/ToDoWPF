@@ -26,6 +26,7 @@ namespace ToDo.Pages
         private DbService _dbService;
         private UserService _userService;
         private ProjectService _projectService;
+        private ProjectFilterSortDto _filterDto;
         public ProjectsPage()
         {
             InitializeComponent();
@@ -33,12 +34,13 @@ namespace ToDo.Pages
             var dbContext = _dbService.Context();
             _userService = new UserService(dbContext);
             _projectService = new ProjectService(dbContext, _userService);
+            _filterDto = new ProjectFilterSortDto();
             LoadProjects();
         }
 
         private void LoadProjects()
         {
-            var projects = _projectService.GetAllProjects(new ProjectFilterSortDto());
+            var projects = _projectService.GetAllProjects(_filterDto);
             ProjectListBox.ItemsSource = projects;
             ProjectListBox.SelectedIndex = 0;
         }
@@ -86,5 +88,49 @@ namespace ToDo.Pages
         {
             LoadProjects();
         }
+
+        private void ApplyFilter_Click(object sender, RoutedEventArgs e)
+        {
+            var sortDir = SortDirection.ASC;
+            var sortBy = "Id";
+            List<Entities.Color> selectedColors = new List<Entities.Color>();
+            foreach (var item in ColorListBox.SelectedItems)
+            {
+                if (Enum.TryParse(item.ToString(), out Entities.Color color))
+                {
+                    selectedColors.Add(color);
+                }
+            }
+            if (DirectionComboBox.SelectedItem is ComboBoxItem selectedItem && selectedItem.Tag is Models.SortDirection selectedDir)
+            {
+                sortDir = selectedDir;
+            }
+            if (SortByCombobox.SelectedItem is ComboBoxItem selectedBy && selectedBy.Tag is string selectedSortBy)
+            {
+                sortBy = selectedSortBy;
+            }
+            _filterDto = new ProjectFilterSortDto()
+            {
+                Search = SearchBox.Text,
+                SortDirection = sortDir,
+                Colors = selectedColors,
+                SortBy = sortBy,
+                IsDone = isDoneFilter.IsChecked
+            };
+            LoadProjects();
+        }
+
+        private void ClearFilter_Click(object sender, RoutedEventArgs e)
+        {
+            _filterDto = new ProjectFilterSortDto();
+            SearchBox.Text = "";
+            DirectionComboBox.SelectedIndex = 0;
+            ColorListBox.SelectedItems.Clear();
+            SortByCombobox.SelectedIndex = 0;
+            isDoneFilter.IsChecked = false;
+            LoadProjects();
+        }
+
+
     }
 }

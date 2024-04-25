@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ToDo.Pages"
+      xmlns:Models="clr-namespace:ToDo.Models"
+         xmlns:Entities="clr-namespace:ToDo.Entities"
       xmlns:Components="clr-namespace:ToDo.Components"
       xmlns:Converter="clr-namespace:ToDo.Converter"
       mc:Ignorable="d" 
@@ -65,6 +67,54 @@
                 </StackPanel>
                 <StackPanel x:Name="TaskListHolder" Orientation="Horizontal" MinWidth="200">
                     <Frame x:Name="taskFrame" NavigationUIVisibility="Hidden"/>
+                </StackPanel>
+                <StackPanel MinWidth="200">
+                    <StackPanel Margin="5">
+                        <TextBlock HorizontalAlignment="Center">Search</TextBlock>
+                        <Components:CustomTextBox HorizontalAlignment="Center" x:Name="SearchBox"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <TextBlock HorizontalAlignment="Center">Sort Direction</TextBlock>
+                        <ComboBox x:Name="DirectionComboBox" SelectedIndex="0" Width="150">
+                            <ComboBoxItem Content="Ascending" Tag="{x:Static Models:SortDirection.ASC}"/>
+                            <ComboBoxItem Content="Descending" Tag="{x:Static Models:SortDirection.DESC}"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <ListBox x:Name="ColorListBox" SelectionMode="Multiple" Margin="5">
+                            <ListBox.ItemsSource>
+                                <x:Array Type="{x:Type Entities:Color}">
+                                    <Entities:Color>Blue</Entities:Color>
+                                    <Entities:Color>Green</Entities:Color>
+                                    <Entities:Color>Purple</Entities:Color>
+                                    <Entities:Color>Orange</Entities:Color>
+                                    <Entities:Color>Red</Entities:Color>
+                                    <Entities:Color>Yellow</Entities:Color>
+                                </x:Array>
+                            </ListBox.ItemsSource>
+                        </ListBox>
+                    </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <TextBlock HorizontalAlignment="Center">Sort By</TextBlock>
+                        <ComboBox x:Name="SortByCombobox" SelectedIndex="0" Width="150">
+                            <ComboBoxItem Content="Default" Tag="Id"/>
+                            <ComboBoxItem Content="Name" Tag="Name"/>
+                            <ComboBoxItem Content="Deadline" Tag="DeadLine"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                        <CheckBox x:Name="isDoneFilter" Content="is Project Done"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                        <Components:CustomButton Click="ApplyFilter_Click" Width="110" Text="Apply"/>
+                        <Components:IconButton Width="35" Height="35" Click="ClearFilter_Click" Image="../Icons/refresh_cw_icon.png" />
+                    </StackPanel>
+
                 </StackPanel>
             </StackPanel>
         </Grid>

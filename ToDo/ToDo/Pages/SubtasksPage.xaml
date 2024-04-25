@@ -68,7 +68,7 @@
         </StackPanel>
 
         <ScrollViewer Grid.Row="1" MaxHeight="290" VerticalScrollBarVisibility="Auto">
-            <StackPanel x:Name="SubtaskStackPanel" Margin="10,0,10,0"/>
+            <StackPanel x:Name="SubtaskStackPanel" Margin="10,0,10,0" />
         </ScrollViewer>
     </Grid>
 </Page>
