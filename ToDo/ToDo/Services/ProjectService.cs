@@ -27,10 +27,17 @@ namespace ToDo.Services
             {
                 return null;
             }
-            var baseQuery = _context.Projects.Include(x => x.Tasks).Where(x => (x.UserId == user.Id) && (searchQuery.Search == null ||
-                (x.Name.ToLower().Contains(searchQuery.Search.ToLower()) || x.Description.ToLower().Contains(searchQuery.Search.ToLower()))) && (searchQuery.IsDone == null ||
-                (x.IsDone == searchQuery.IsDone)) && (searchQuery.Colors.Any() ||
-                (searchQuery.Colors.Contains(x.Color)))).Select(x => new ProjectDto()
+            var baseQuery = _context.Projects.Include(x => x.Tasks).Where(x => 
+            (x.UserId == user.Id)
+            && 
+            (searchQuery.Search == null || (x.Name.ToLower().Contains(searchQuery.Search.ToLower()) 
+            || 
+            x.Description.ToLower().Contains(searchQuery.Search.ToLower()))) 
+            && 
+            (searchQuery.IsDone == null || (x.IsDone == searchQuery.IsDone)) 
+            && 
+            (!searchQuery.Colors.Any() || (searchQuery.Colors.Contains(x.Color))))
+                .Select(x => new ProjectDto()
                 {
                     Id = x.Id,
                     Name = x.Name,
