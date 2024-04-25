@@ -82,7 +82,13 @@ namespace ToDo.Pages
 
         private void AddSubtaskButton_Click(object sender, RoutedEventArgs e)
         {
-
+            AddSubtaskWindow addSubtaskWindow = new AddSubtaskWindow(_taskId);
+            addSubtaskWindow.Closed += AddSubtaskWindow_Closed;
+            addSubtaskWindow.Show();
+        }
+        private void AddSubtaskWindow_Closed(object sender, EventArgs e)
+        {
+            LoadSubtasks();
         }
 
         private void DeleteTaskButton_Click(object sender, RoutedEventArgs e)

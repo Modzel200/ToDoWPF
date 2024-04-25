@@ -73,14 +73,14 @@ namespace ToDo.Services
             _context.SubTasks.Remove(subtask);
             _context.SaveChanges();
         }
-        public void AddSubTask(CreateSubTaskDto dto, int projectId, int taskId)
+        public void AddSubTask(CreateSubTaskDto dto, int taskId)
         {
             var user = _userService.loggedUser();
             if (user == null)
             {
                 return;
             }
-            var task = _context.Tasks.Include(x => x.Project).SingleOrDefault(x => x.Id == taskId && x.Project.Id == projectId && x.Project.UserId == user.Id);
+            var task = _context.Tasks.Include(x => x.Project).SingleOrDefault(x => x.Id == taskId && x.Project.UserId == user.Id);
             if (task == null)
             {
                 return;

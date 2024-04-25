@@ -18,14 +18,14 @@
                         <ColumnDefinition Width="9*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Margin="5" Orientation="Horizontal">
-                        <CheckBox Margin="0 0 0 5" Click="CheckBox_ToggleDone" Tag="{Binding Id}" IsChecked="{Binding IsDone, Mode=TwoWay}">
+                    <StackPanel Grid.Column="0" Margin="5" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                        <CheckBox HorizontalAlignment="Stretch" Margin="0 0 0 5" Click="CheckBox_ToggleDone" Tag="{Binding Id}" IsChecked="{Binding isDone, Mode=TwoWay}">
                             <CheckBox.Content>
                                 <TextBlock Text="{Binding Description}">
                                     <TextBlock.Style>
                                         <Style TargetType="TextBlock">
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsDone}" Value="True">
+                                                <DataTrigger Binding="{Binding isDone}" Value="True">
                                                     <Setter Property="TextDecorations" Value="Strikethrough"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -34,7 +34,9 @@
                                 </TextBlock>
                             </CheckBox.Content>
                         </CheckBox>
-                        <Components:IconButton HorizontalAlignment="Right" Width="30" Height="25" Image="../Icons/trash_2_icon.png" Click="DeleteTaskButton_Click" Margin="15,5,15,5" Tag="{Binding Id}">
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="5" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                        <Components:IconButton HorizontalAlignment="Right" Width="30" Height="25" Image="../Icons/trash_2_icon.png" Click="DeleteTaskButton_Click" Tag="{Binding Id}">
                             <Components:IconButton.ToolTip>
                                 <TextBlock>Delete Task</TextBlock>
                             </Components:IconButton.ToolTip>
@@ -58,9 +60,9 @@
                     <TextBlock>Go back</TextBlock>
                 </Components:IconButton.ToolTip>
             </Components:IconButton>
-            <Components:IconButton Width="200" Height="25" Image="../Icons/plus_add_icon.png" Click="AddSubtaskButton_Click" Text="New Task" Margin="15,10,15,10">
+            <Components:IconButton Width="200" Height="25" Image="../Icons/plus_add_icon.png" Click="AddSubtaskButton_Click" Text="New Subtask" Margin="15,10,15,10">
                 <Components:IconButton.ToolTip>
-                    <TextBlock>Add Task</TextBlock>
+                    <TextBlock>Add Subtask</TextBlock>
                 </Components:IconButton.ToolTip>
             </Components:IconButton>
         </StackPanel>

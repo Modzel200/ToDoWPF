@@ -1,0 +1,24 @@
+﻿<Window x:Class="ToDo.Components.AddSubtaskWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ToDo.Components"
+        mc:Ignorable="d"
+        Title="Add Subtask" Height="200" Width="250">
+    <StackPanel>
+        <StackPanel Background="#FF964F">
+            <TextBlock Foreground="#ffffff" HorizontalAlignment="Center" FontSize="17" FontWeight="Bold" Margin="10">Add a Subtask</TextBlock>
+        </StackPanel>
+
+
+        <StackPanel>
+            <TextBlock Text="Description:" Margin="5"/>
+            <TextBox Height="50" x:Name="DescriptionTextBox" Grid.Row="1" Margin="5"/>
+        </StackPanel>
+
+        <local:CustomButton Width="200" Text="Create" Click="AddSubtaskButton_Click" Margin="5"/>
+
+
+    </StackPanel>
+</Window>

@@ -40,7 +40,7 @@
         </StackPanel>
 
 
-            <local:CustomButton Width="200" Text="Add Project" Click="AddProjectButton_Click" Margin="5"/>
+            <local:CustomButton Width="200" Text="Create" Click="AddProjectButton_Click" Margin="5"/>
  
  
     </StackPanel>
