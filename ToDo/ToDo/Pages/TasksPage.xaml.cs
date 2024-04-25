@@ -13,6 +13,7 @@ namespace ToDo.Pages
         private DbService _dbService;
         private UserService _userService;
         private TaskService _taskService;
+        private readonly ProjectService _projectService;
         private int _projectId;
 
         public TasksPage(int projectId)
@@ -21,7 +22,8 @@ namespace ToDo.Pages
             _dbService = new DbService();
             var dbContext = _dbService.Context();
             _userService = new UserService(dbContext);
-            _taskService = new TaskService(dbContext, _userService);
+            _projectService = new ProjectService(dbContext, _userService);
+            _taskService = new TaskService(dbContext, _userService, _projectService);
             _projectId = projectId;
             LoadTasks();
         }

@@ -13,10 +13,12 @@ namespace ToDo.Services
     {
         private readonly ToDoDbContext _context;
         private readonly UserService _userService;
-        public TaskService(ToDoDbContext context, UserService userService)
+        private readonly ProjectService _projectService;
+        public TaskService(ToDoDbContext context, UserService userService, ProjectService projectService)
         {
             this._context = context;
             this._userService = userService;
+            this._projectService = projectService;
         }
         public IEnumerable<TaskDto> GetAllTasks(int projectId)
         {
@@ -146,6 +148,7 @@ namespace ToDo.Services
                 return;
             }
             task.IsDone = !task.IsDone;
+            _projectService.CheckAndMarkAsDone(task.ProjectId);
             _context.Tasks.Update(task);
             _context.SaveChanges();
         }

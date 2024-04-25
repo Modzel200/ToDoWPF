@@ -2,10 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using ToDo.Entities;
 using ToDo.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ToDo.Services
 {
@@ -18,24 +20,40 @@ namespace ToDo.Services
             this._context = context;
             this._userService = userService;
         }
-        public IEnumerable<ProjectDto> GetAllProjects()
+        public IEnumerable<ProjectDto> GetAllProjects(ProjectFilterSortDto searchQuery)
         {
             var user = _userService.loggedUser();
             if (user == null)
             {
                 return null;
             }
-            var projects = _context.Projects.Include(x => x.Tasks).Where(x => x.UserId == user.Id).Select(x => new ProjectDto()
+            var baseQuery = _context.Projects.Include(x => x.Tasks).Where(x => (x.UserId == user.Id) && (searchQuery.Search == null ||
+                (x.Name.ToLower().Contains(searchQuery.Search.ToLower()) || x.Description.ToLower().Contains(searchQuery.Search.ToLower()))) && (searchQuery.IsDone == null ||
+                (x.IsDone == searchQuery.IsDone)) && (searchQuery.Colors.Any() ||
+                (searchQuery.Colors.Contains(x.Color)))).Select(x => new ProjectDto()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    Color = x.Color,
+                    DeadLine = x.DeadLine,
+                    IsDone = x.IsDone,
+                    DoneRatio = x.Tasks.Where(y => y.IsDone == true).Count()+"/"+x.Tasks.Count(),
+                }
+                );
+            var columnsSelectors = new Dictionary<string, Expression<Func<ProjectDto, object>>>
             {
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description,
-                Color = x.Color,
-                DeadLine = x.DeadLine,
-                IsDone = x.IsDone,
-                DoneRatio = x.Tasks.Where(y => y.IsDone == true).Count()/x.Tasks.Count(),
-            }).ToList();
-            return projects;
+                { nameof(ProjectDto.Id), x => x.Id},
+                { nameof(ProjectDto.Name), x => x.Name},
+                { nameof(ProjectDto.DeadLine), x => x.DeadLine},
+            };
+            var selectedColumn = columnsSelectors[searchQuery.SortBy];
+
+            baseQuery = searchQuery.SortDirection == SortDirection.ASC ?
+                    baseQuery.OrderBy(selectedColumn)
+                    : baseQuery.OrderByDescending(selectedColumn);
+
+            return baseQuery;
         }
         public ProjectDto? GetProject(int projectId)
         {
@@ -134,6 +152,11 @@ namespace ToDo.Services
             if (project.Tasks.All(x => x.IsDone == true))
             {
                 project.IsDone = true;
+                _context.Projects.Update(project);
+                _context.SaveChanges();
+            } else
+            {
+                project.IsDone = false;
                 _context.Projects.Update(project);
                 _context.SaveChanges();
             }

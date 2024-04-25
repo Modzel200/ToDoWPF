@@ -17,6 +17,6 @@ namespace ToDo.Models
         public DateTime? DeadLine { get; set; }
         public bool IsDone { get; set; } = false;
         public ICollection<TaskDto>? Tasks { get; set; } = new ObservableCollection<TaskDto>();
-        public float? DoneRatio {  get; set; }
+        public string DoneRatio { get; set; }
     }
 }

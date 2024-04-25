@@ -26,9 +26,6 @@ public partial class MainWindow : Window
 {
     private DbService _dbService;
     private UserService _userService;
-    private ProjectService _projectService;
-    private TaskService _taskService;
-    private SubtaskService _subtaskService;
     private LoginPage loginPage;
 
     public MainWindow()
