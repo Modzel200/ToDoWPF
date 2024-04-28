@@ -30,6 +30,8 @@ namespace ToDo.Entities
         public int ProjectId { get; set; }
         public virtual Project Project { get; set; }
         public virtual ICollection<SubTask> SubTasks { get; set;} = new ObservableCollection<SubTask>();
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
 
     }
 }

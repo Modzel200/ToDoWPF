@@ -18,7 +18,7 @@ namespace ToDo.Services
         {
             this._context = context;
             this._userService = userService;
-            this._projectService = projectService;
+            _projectService = projectService;
         }
         public IEnumerable<TaskDto> GetAllTasks(int projectId)
         {
@@ -52,12 +52,7 @@ namespace ToDo.Services
             {
                 return null;
             }
-            var project = _context.Projects.SingleOrDefault(x => x.Id == taskId && x.UserId == user.Id);
-            if(project == null)
-            {
-                return null;
-            }
-            var task = _context.Tasks.Include(x => x.SubTasks).Where(x => x.ProjectId == project.Id).Select(x => new TaskDto()
+            var task = _context.Tasks.Include(x => x.SubTasks).Where(x => x.UserId == user.Id && x.Id == taskId).Select(x => new TaskDto()
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -82,7 +77,7 @@ namespace ToDo.Services
             {
                 return;
             }
-            var task = _context.Tasks.Include(x => x.Project).SingleOrDefault(x => x.Id == taskId && x.Project.UserId == user.Id);
+            var task = _context.Tasks.SingleOrDefault(x => x.Id == taskId && x.UserId == user.Id);
             if(task == null)
             {
                 return;
@@ -111,6 +106,8 @@ namespace ToDo.Services
                 DeadLine = dto.DeadLine,
                 Project = project,
                 ProjectId = project.Id,
+                User = user,
+                UserId = user.Id,
             };
             _context.Tasks.Add(task);
             _context.SaveChanges();
@@ -122,7 +119,7 @@ namespace ToDo.Services
             {
                 return;
             }
-            var task = _context.Tasks.Include(x => x.Project).SingleOrDefault(x => x.Id == taskId && x.Project.UserId == user.Id);
+            var task = _context.Tasks.SingleOrDefault(x => x.Id == taskId && x.UserId == user.Id);
             if(task == null)
             {
                 return;
@@ -142,7 +139,7 @@ namespace ToDo.Services
             {
                 return;
             }
-            var task = _context.Tasks.Include(x => x.Project).SingleOrDefault(x => x.Id == taskId && x.Project.UserId == user.Id);
+            var task = _context.Tasks.SingleOrDefault(x => x.Id == taskId && x.UserId == user.Id);
             if (task == null)
             {
                 return;

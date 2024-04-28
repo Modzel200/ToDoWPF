@@ -25,7 +25,7 @@ namespace ToDo.Services
             {
                 return null;
             }
-            var task = _context.Tasks.Include(x => x.Project).SingleOrDefault(x => x.Id == taskId && x.Project.UserId == user.Id);
+            var task = _context.Tasks.SingleOrDefault(x => x.Id == taskId && x.UserId == user.Id);
             if (task == null)
             {
                 return null;
@@ -45,7 +45,7 @@ namespace ToDo.Services
             {
                 return null;
             }
-            var subtask = _context.SubTasks.Include(x => x.Task).ThenInclude(x => x.Project).SingleOrDefault(x => x.Id == subtaskId && x.Task.Project.UserId == user.Id);
+            var subtask = _context.SubTasks.SingleOrDefault(x => x.Id == subtaskId && x.UserId == user.Id);
             if (subtask == null)
             {
                 return null;
@@ -65,7 +65,7 @@ namespace ToDo.Services
             {
                 return;
             }
-            var subtask = _context.SubTasks.Include(x => x.Task).ThenInclude(x => x.Project).SingleOrDefault(x => x.Id == subtaskId && x.Task.Project.UserId == user.Id);
+            var subtask = _context.SubTasks.SingleOrDefault(x => x.Id == subtaskId && x.UserId == user.Id);
             if (subtask == null)
             {
                 return;
@@ -80,7 +80,7 @@ namespace ToDo.Services
             {
                 return;
             }
-            var task = _context.Tasks.Include(x => x.Project).SingleOrDefault(x => x.Id == taskId && x.Project.UserId == user.Id);
+            var task = _context.Tasks.SingleOrDefault(x => x.Id == taskId && x.UserId == user.Id);
             if (task == null)
             {
                 return;
@@ -90,6 +90,8 @@ namespace ToDo.Services
                 Description = dto.Description,
                 Task = task,
                 TaskId = task.Id,
+                User = user,
+                UserId = user.Id,
             };
             _context.SubTasks.Add(subtask);
             _context.SaveChanges();
@@ -101,7 +103,7 @@ namespace ToDo.Services
             {
                 return;
             }
-            var subtask = _context.SubTasks.Include(x => x.Task).ThenInclude(x => x.Project).SingleOrDefault(x => x.Id == subtaskId && x.Task.Project.UserId == user.Id);
+            var subtask = _context.SubTasks.SingleOrDefault(x => x.Id == subtaskId && x.UserId == user.Id);
             if (subtask == null)
             {
                 return;
@@ -117,7 +119,7 @@ namespace ToDo.Services
             {
                 return;
             }
-            var subtask = _context.SubTasks.Include(x => x.Task).ThenInclude(x => x.Project).SingleOrDefault(x => x.Id == subtaskId && x.Task.Project.UserId == user.Id);
+            var subtask = _context.SubTasks.SingleOrDefault(x => x.Id == subtaskId && x.UserId == user.Id);
             if (subtask == null)
             {
                 return;
