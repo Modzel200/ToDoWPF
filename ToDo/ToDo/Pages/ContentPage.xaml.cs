@@ -61,9 +61,9 @@ namespace ToDo.Pages
             contentFrame.Navigate(currentPage);
         }
 
-        private void Settings_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Notifications_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Settings Clicked");
+            NotificationPopup.IsOpen = !NotificationPopup.IsOpen;
         }
 
         private void LogoutUser()

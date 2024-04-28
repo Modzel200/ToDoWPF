@@ -51,7 +51,7 @@ namespace ToDo.Components
             }
             else
             {
-                MessageBox.Show("Please select a category and priority level.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please include a description.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

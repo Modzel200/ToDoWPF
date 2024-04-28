@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <None Remove="Icons\align_justify_icon.png" />
+      <None Remove="Icons\bell_icon.png" />
       <None Remove="Icons\check_icon.png" />
       <None Remove="Icons\chevrons_left_icon.png" />
       <None Remove="Icons\chevrons_right_icon.png" />
@@ -40,6 +41,7 @@
 
     <ItemGroup>
       <Resource Include="Icons\align_justify_icon.png" />
+      <Resource Include="Icons\bell_icon.png" />
       <Resource Include="Icons\edit_icon.png" />
       <Resource Include="Icons\logo.png" />
       <Resource Include="Icons\number_one_light_icon.png" />
