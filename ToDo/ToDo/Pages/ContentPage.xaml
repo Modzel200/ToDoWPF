@@ -20,6 +20,27 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <DataTemplate x:Key="NotificationItemTemplate">
+            <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Background="LightGray">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="9*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="5" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                        <TextBlock Text="{Binding Message}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="5" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                        <Components:IconButton HorizontalAlignment="Right" Width="30" Height="25" Image="../Icons/x_icon.png" Click="MarkNotificationButton_Click" Tag="{Binding Id}">
+                            <Components:IconButton.ToolTip>
+                                <TextBlock>Mark as read</TextBlock>
+                            </Components:IconButton.ToolTip>
+                        </Components:IconButton>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
     </Page.Resources>
 
     <Grid>
@@ -35,15 +56,9 @@
 
             <Components:IconButton x:Name="NotificationButton" Width="35" Height="35" Click="Notifications_Clicked" Image="../Icons/bell_icon.png" Margin="25,5,10,5"/>
             <Popup StaysOpen="False"  x:Name="NotificationPopup" PlacementTarget="{Binding ElementName=NotificationButton}">
-                <Border BorderThickness="1">
-                    <StackPanel Background="#FFFFFF" MinWidth="200" MinHeight="50">
-                        <TextBlock Margin="5"> Notification</TextBlock>
-                        <TextBlock Margin="5"> Notification</TextBlock>
-                        <TextBlock Margin="5"> Notification</TextBlock>
-                        <TextBlock Margin="5"> Notification</TextBlock>
-                        <TextBlock Margin="5"> Notification</TextBlock>
-                </StackPanel>
-                </Border>
+                <ScrollViewer Grid.Row="1" MaxHeight="290" VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="NotifcationStackPanel" Margin="10,0,10,0" />
+                </ScrollViewer>
             </Popup>
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Text="Logout" MouseDown="Logout_MouseDown" Margin="5"
            FontSize="17" Style="{StaticResource NavbarTextStyle}"/>
