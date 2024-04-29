@@ -109,6 +109,18 @@ namespace ToDo.Services
                 User = user,
                 UserId = user.Id,
             };
+            if (dto.DeadLine is not null)
+            {
+                var notification = new Notification()
+                {
+                    Message = "",
+                    UserId = user.Id,
+                };
+                _context.Notifications.Add(notification);
+                _context.SaveChanges();
+                task.Notification = notification;
+                task.NotificationId = notification.Id;
+            }
             _context.Tasks.Add(task);
             _context.SaveChanges();
         }
@@ -123,6 +135,20 @@ namespace ToDo.Services
             if(task == null)
             {
                 return;
+            }
+            if (dto.DeadLine is not null)
+            {
+                var oldNotification = _context.Notifications.SingleOrDefault(x => x.Id == task.NotificationId);
+                _context.Notifications.Remove(oldNotification);
+                var notification = new Notification()
+                {
+                    Message = "",
+                    UserId = user.Id,
+                };
+                _context.Notifications.Add(notification);
+                _context.SaveChanges();
+                task.Notification = notification;
+                task.NotificationId = notification.Id;
             }
             task.Name = dto.Name;
             task.Description = dto.Description;

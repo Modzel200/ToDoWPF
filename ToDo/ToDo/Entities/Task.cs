@@ -32,6 +32,8 @@ namespace ToDo.Entities
         public virtual ICollection<SubTask> SubTasks { get; set;} = new ObservableCollection<SubTask>();
         public int UserId { get; set; }
         public virtual User User { get; set; }
+        public int? NotificationId { get; set; }
+        public virtual Notification? Notification { get; set; }
 
     }
 }

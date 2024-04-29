@@ -6,23 +6,15 @@ using System.Threading.Tasks;
 
 namespace ToDo.Entities
 {
-    public enum Type
-    {
-        Project,
-        Task
-    }
     public class Notification
     {
         public int Id { get; set; }
         public string Message { get; set; }
-        public Type Type { get; set; }
-
-
+        public bool isRead { get; set; } = false;
         public int? ProjectId { get; set; }
         public int? TaskId { get; set; }
-
-
-        public Project? Project { get; set; }
-        public Task? Task { get; set; }
+        public virtual Project? Project { get; set; }
+        public virtual Task? Task { get; set; }
+        public int UserId {  get; set; }
     }
 }

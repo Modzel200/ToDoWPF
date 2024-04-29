@@ -122,6 +122,18 @@ namespace ToDo.Services
                 User = user,
                 UserId = user.Id,
             };
+            if (dto.DeadLine is not null)
+            {
+                var notification = new Notification()
+                {
+                    Message = "",
+                    UserId = user.Id,
+                };
+                _context.Notifications.Add(notification);
+                _context.SaveChanges();
+                project.Notification = notification;
+                project.NotificationId = notification.Id;
+            }
             _context.Projects.Add(project);
             _context.SaveChanges();
         }
@@ -136,6 +148,20 @@ namespace ToDo.Services
             if(project == null)
             {
                 return;
+            }
+            if (dto.DeadLine is not null)
+            {
+                var oldNotification = _context.Notifications.SingleOrDefault(x => x.Id == project.NotificationId);
+                _context.Notifications.Remove(oldNotification);
+                var notification = new Notification()
+                {
+                    Message = "",
+                    UserId = user.Id,
+                };
+                _context.Notifications.Add(notification);
+                _context.SaveChanges();
+                project.Notification = notification;
+                project.NotificationId = notification.Id;
             }
             project.Name = dto.Name;
             project.Description = dto.Description;

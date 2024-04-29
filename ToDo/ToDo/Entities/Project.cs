@@ -27,5 +27,7 @@ namespace ToDo.Entities
         public int UserId { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<Task> Tasks { get; private set; } = new ObservableCollection<Task>();
+        public int? NotificationId {  get; set; }
+        public virtual Notification? Notification { get; set; }
     }
 }
