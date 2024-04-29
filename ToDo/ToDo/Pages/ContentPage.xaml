@@ -51,14 +51,20 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#FF964F" HorizontalAlignment="Stretch">
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="Projects" MouseDown="Projects_MouseDown" Margin="20,5,20,5"
            FontSize="17" Style="{StaticResource NavbarTextStyle}" x:Name="ProjectsTextBlock"/>
-            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="User" MouseDown="User_MouseDown" Margin="5,5,20,5"
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="User" MouseDown="User_MouseDown" Margin="5,5,15,5"
            FontSize="17" Style="{StaticResource NavbarTextStyle}" x:Name="UserTextBlock"/>
 
-            <Components:IconButton x:Name="NotificationButton" Width="35" Height="35" Click="Notifications_Clicked" Image="../Icons/bell_icon.png" Margin="25,5,10,5"/>
+            <Components:IconButton x:Name="NotificationButton" Width="35" Height="35" Click="Notifications_Clicked" Image="../Icons/bell_icon.png" Margin="0,5,10,5"/>
+            
             <Popup StaysOpen="False"  x:Name="NotificationPopup" PlacementTarget="{Binding ElementName=NotificationButton}">
-                <ScrollViewer Grid.Row="1" MaxHeight="290" VerticalScrollBarVisibility="Auto">
-                    <StackPanel x:Name="NotifcationStackPanel" Margin="10,0,10,0" />
-                </ScrollViewer>
+                <Border BorderBrush="Gray" BorderThickness="1" Background="LightGray">
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Center" FontSize="15" Margin="5">Notifications</TextBlock>
+                        <ScrollViewer Grid.Row="1" MaxHeight="290" VerticalScrollBarVisibility="Auto" Background="White">
+                            <StackPanel x:Name="NotifcationStackPanel" Margin="10" Background="White" />
+                        </ScrollViewer>
+                    </StackPanel>
+                </Border>
             </Popup>
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Text="Logout" MouseDown="Logout_MouseDown" Margin="5"
            FontSize="17" Style="{StaticResource NavbarTextStyle}"/>
