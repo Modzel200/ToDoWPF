@@ -55,7 +55,7 @@
            FontSize="17" Style="{StaticResource NavbarTextStyle}" x:Name="UserTextBlock"/>
 
             <Components:IconButton x:Name="NotificationButton" Width="35" Height="35" Click="Notifications_Clicked" Image="../Icons/bell_icon.png" Margin="0,5,10,5"/>
-            
+
             <Popup StaysOpen="False"  x:Name="NotificationPopup" PlacementTarget="{Binding ElementName=NotificationButton}">
                 <Border BorderBrush="Gray" BorderThickness="1" Background="LightGray">
                     <StackPanel>
@@ -68,8 +68,6 @@
             </Popup>
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Text="Logout" MouseDown="Logout_MouseDown" Margin="5"
            FontSize="17" Style="{StaticResource NavbarTextStyle}"/>
-            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="Close" MouseDown="Close_MouseDown" Margin="450,5,15,5"
-FontSize="17" Style="{StaticResource NavbarTextStyle}" x:Name="ExitTextBlock"/>
         </StackPanel>
         <StackPanel Grid.Row="1">
             <Frame x:Name="contentFrame" NavigationUIVisibility="Hidden"/>

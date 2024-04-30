@@ -93,10 +93,6 @@ namespace ToDo.Pages
         {
             LogoutUser();
         }
-        private void Close_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Environment.Exit(0);
-        }
         private void Projects_MouseDown(object sender, MouseButtonEventArgs e)
         {
             contentFrame.Navigate(new ProjectsPage());
