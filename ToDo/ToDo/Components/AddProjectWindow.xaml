@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:ToDo.Components"
         xmlns:Entities="clr-namespace:ToDo.Entities"
         mc:Ignorable="d"
-        Title="Add Project" MinHeight="400" MinWidth="320" MaxHeight="400" MaxWidth="320" Icon="/Icons/logo.png">
+        Title="Add Project" MinHeight="400" MinWidth="320" MaxHeight="400" MaxWidth="320" Icon="/Icons/logo.png" WindowStyle="None" BorderBrush="#FF964F"
+        BorderThickness="5"
+        AllowsTransparency="True">
     
     <StackPanel>
         <StackPanel Background="#FF964F">

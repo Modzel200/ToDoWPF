@@ -68,7 +68,8 @@
             </Popup>
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Text="Logout" MouseDown="Logout_MouseDown" Margin="5"
            FontSize="17" Style="{StaticResource NavbarTextStyle}"/>
-
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="Close" MouseDown="Close_MouseDown" Margin="450,5,15,5"
+FontSize="17" Style="{StaticResource NavbarTextStyle}" x:Name="ExitTextBlock"/>
         </StackPanel>
         <StackPanel Grid.Row="1">
             <Frame x:Name="contentFrame" NavigationUIVisibility="Hidden"/>
