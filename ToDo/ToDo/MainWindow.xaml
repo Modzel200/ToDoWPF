@@ -7,9 +7,8 @@
         xmlns:Components="clr-namespace:ToDo.Components"
         mc:Ignorable="d"
         Height="450" Width="800"
-        Title="What ToDo" MinHeight="450" MinWidth="800" WindowStyle="None" BorderBrush="#FF964F"
-        BorderThickness="5"
-        AllowsTransparency="True" Loaded="Window_Loaded" Icon="/Icons/logo.png">
+        Title="What ToDo" MinHeight="450" MinWidth="800" BorderBrush="#FF964F"
+        BorderThickness="5" Loaded="Window_Loaded" Icon="/Icons/logo.png" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Grid>
         <ContentControl x:Name="contentControl" />
     </Grid>

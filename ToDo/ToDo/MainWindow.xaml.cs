@@ -74,4 +74,8 @@ public partial class MainWindow : Window
         this.Content = contentPage;
     }
 
+    private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        this.DragMove();
+    }
 }
