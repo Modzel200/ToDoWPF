@@ -79,7 +79,7 @@ namespace ToDo.Pages
                 var blankInput = new BlankRegistration();
                 var blankInputModal = new Window
                 {
-                    Title = "Informacja",
+                    Title = "Input error",
                     Content = blankInput,
                     SizeToContent = SizeToContent.WidthAndHeight,
                     ResizeMode = ResizeMode.NoResize,
@@ -103,7 +103,7 @@ namespace ToDo.Pages
                 var accountCreated = new AccountCreated();
                 var accountCreatedModal = new Window
                 {
-                    Title = "Informacja",
+                    Title = "Account Created",
                     Content = accountCreated,
                     SizeToContent = SizeToContent.WidthAndHeight,
                     ResizeMode = ResizeMode.NoResize,
