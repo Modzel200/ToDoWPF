@@ -43,6 +43,7 @@ namespace ToDo.Pages
             var projects = _projectService.GetAllProjects(_filterDto);
             ProjectListBox.ItemsSource = projects;
             ProjectListBox.SelectedIndex = 0;
+            if (projects.Count() == 0) taskFrame.Content = null;
         }
 
         private void ProjectListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -56,7 +57,7 @@ namespace ToDo.Pages
 
         private void EnableTaskComponent(int projectId)
         {
-            taskFrame.Content = new TasksPage(projectId);
+            taskFrame.Content = new TasksPage(projectId, LoadProjects);
         }
 
         private void AddProjectButton_Click(object sender, RoutedEventArgs e)

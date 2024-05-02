@@ -15,8 +15,9 @@ namespace ToDo.Pages
         private TaskService _taskService;
         private readonly ProjectService _projectService;
         private int _projectId;
+        private Action reloadProjects;
 
-        public TasksPage(int projectId)
+        public TasksPage(int projectId, Action reloadProjects)
         {
             InitializeComponent();
             _dbService = new DbService();
@@ -25,6 +26,7 @@ namespace ToDo.Pages
             _projectService = new ProjectService(dbContext, _userService);
             _taskService = new TaskService(dbContext, _userService, _projectService);
             _projectId = projectId;
+            this.reloadProjects = reloadProjects;
             LoadTasks();
         }
 
@@ -85,6 +87,7 @@ namespace ToDo.Pages
             {
                 _taskService.ToggleDone(Id);
                 LoadTasks();
+                reloadProjects.Invoke();
             }
         }
 

@@ -6,9 +6,8 @@
         xmlns:local="clr-namespace:ToDo.Components"
         xmlns:Entities="clr-namespace:ToDo.Entities"
         mc:Ignorable="d"
-        Title="Add Task" MinHeight="420" MinWidth="320" MaxHeight="500" MaxWidth="320" Icon="/Icons/logo.png" WindowStyle="None" BorderBrush="#FF964F"
-        BorderThickness="5"
-        AllowsTransparency="True">
+        Title="Add Task" MinHeight="400" MinWidth="320" MaxHeight="500" MaxWidth="320" Icon="/Icons/logo.png" ResizeMode="NoResize" BorderBrush="#FF964F"
+        BorderThickness="5">
     
     <StackPanel>
         <StackPanel Background="#FF964F">

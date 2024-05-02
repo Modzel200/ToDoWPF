@@ -1,14 +1,14 @@
 ﻿<Page x:Name="page" x:Class="ToDo.Pages.ProjectsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:ToDo.Pages"
       xmlns:Models="clr-namespace:ToDo.Models"
-         xmlns:Entities="clr-namespace:ToDo.Entities"
+      xmlns:Entities="clr-namespace:ToDo.Entities"
       xmlns:Components="clr-namespace:ToDo.Components"
       xmlns:Converter="clr-namespace:ToDo.Converter"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       Background="#ffffff"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProjectsPage">
@@ -19,104 +19,120 @@
     </Page.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="8*"></RowDefinition>
-        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2.5*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="2.5*"/>
+        </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <StackPanel x:Name="stackPanel" Orientation="Horizontal" >
-                <StackPanel MinWidth="200">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                        <Components:IconButton Width="30" Height="25" Image="../Icons/plus_add_icon.png" Click="AddProjectButton_Click" Margin="15,10,15,10">
-                            <Components:IconButton.ToolTip>
-                                <TextBlock>Add Project</TextBlock>
-                            </Components:IconButton.ToolTip>
-                        </Components:IconButton>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17" FontWeight="Bold">Projects</TextBlock>
-                        <Components:IconButton Width="30" Height="25" Image="../Icons/trash_2_icon.png" Click="DeleteProjectButton_Click" Margin="15,10,15,10">
-                            <Components:IconButton.ToolTip>
-                                <TextBlock>Delete Project</TextBlock>
-                            </Components:IconButton.ToolTip>
-                        </Components:IconButton>
-                    </StackPanel>
-                    <ListBox x:Name="ProjectListBox" SelectionChanged="ProjectListBox_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="290 ">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Rectangle Width="15" Height="15" Margin="5" VerticalAlignment="Center" Fill="{Binding Color, Converter={StaticResource ColorConverter}}" RadiusX="5" RadiusY="5"/>
-                                    <StackPanel>
-                                        <TextBlock FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"  Margin="5,0,5,0"   Text="{Binding Name}" >
-                                            <TextBlock.Style>
-                                                <Style TargetType="TextBlock">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsDone}" Value="True">
-                                                            <Setter Property="TextDecorations" Value="Strikethrough"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock>
-                                        <TextBlock FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,0"  Text="{Binding DeadLine}" Visibility="{Binding DeadLine, Converter={StaticResource NullToVisibilityConverter}}"/>
-                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="5,0,5,0"  Text="{Binding Description}" Visibility="{Binding Description, Converter={StaticResource NullToVisibilityConverter}}"/>
-                                    </StackPanel>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </StackPanel>
-                <StackPanel x:Name="TaskListHolder" Orientation="Horizontal" MinWidth="200">
-                    <Frame x:Name="taskFrame" NavigationUIVisibility="Hidden"/>
-                </StackPanel>
-                <StackPanel MinWidth="200">
-                    <StackPanel Margin="5">
-                        <TextBlock HorizontalAlignment="Center">Search</TextBlock>
-                        <Components:CustomTextBox HorizontalAlignment="Center" x:Name="SearchBox"/>
-                    </StackPanel>
+        <Grid Grid.Column="0" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-                    <StackPanel Margin="5">
-                        <TextBlock HorizontalAlignment="Center">Sort Direction</TextBlock>
-                        <ComboBox x:Name="DirectionComboBox" SelectedIndex="0" Width="150">
-                            <ComboBoxItem Content="Ascending" Tag="{x:Static Models:SortDirection.ASC}"/>
-                            <ComboBoxItem Content="Descending" Tag="{x:Static Models:SortDirection.DESC}"/>
-                        </ComboBox>
-                    </StackPanel>
-
-                    <StackPanel>
-                        <ListBox x:Name="ColorListBox" SelectionMode="Multiple" Margin="5">
-                            <ListBox.ItemsSource>
-                                <x:Array Type="{x:Type Entities:Color}">
-                                    <Entities:Color>Blue</Entities:Color>
-                                    <Entities:Color>Green</Entities:Color>
-                                    <Entities:Color>Purple</Entities:Color>
-                                    <Entities:Color>Orange</Entities:Color>
-                                    <Entities:Color>Red</Entities:Color>
-                                    <Entities:Color>Yellow</Entities:Color>
-                                </x:Array>
-                            </ListBox.ItemsSource>
-                        </ListBox>
-                    </StackPanel>
-
-                    <StackPanel Margin="5">
-                        <TextBlock HorizontalAlignment="Center">Sort By</TextBlock>
-                        <ComboBox x:Name="SortByCombobox" SelectedIndex="0" Width="150">
-                            <ComboBoxItem Content="Default" Tag="Id"/>
-                            <ComboBoxItem Content="Name" Tag="Name"/>
-                            <ComboBoxItem Content="Deadline" Tag="DeadLine"/>
-                        </ComboBox>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                        <CheckBox x:Name="isDoneFilter" Content="is Project Done"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                        <Components:CustomButton Click="ApplyFilter_Click" Width="110" Text="Apply"/>
-                        <Components:IconButton Width="35" Height="35" Click="ClearFilter_Click" Image="../Icons/refresh_cw_icon.png" />
-                    </StackPanel>
-
-                </StackPanel>
+            <!-- Projects Sidebar -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                <Components:IconButton Width="30" Height="25" Image="../Icons/plus_add_icon.png" Click="AddProjectButton_Click" Margin="15,10,15,10">
+                    <Components:IconButton.ToolTip>
+                        <TextBlock>Add Project</TextBlock>
+                    </Components:IconButton.ToolTip>
+                </Components:IconButton>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17" FontWeight="Bold">Projects</TextBlock>
+                <Components:IconButton Width="30" Height="25" Image="../Icons/trash_2_icon.png" Click="DeleteProjectButton_Click" Margin="15,10,15,10">
+                    <Components:IconButton.ToolTip>
+                        <TextBlock>Delete Project</TextBlock>
+                    </Components:IconButton.ToolTip>
+                </Components:IconButton>
             </StackPanel>
+            <ListBox x:Name="ProjectListBox" Grid.Row="1" SelectionChanged="ProjectListBox_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Width="15" Height="15" Margin="5" VerticalAlignment="Center" Fill="{Binding Color, Converter={StaticResource ColorConverter}}" RadiusX="5" RadiusY="5"/>
+                            <StackPanel>
+                                <TextBlock FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center" Margin="5,0,5,0" Text="{Binding Name}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsDone}" Value="True">
+                                                    <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <TextBlock FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,0" Text="{Binding DeadLine}" Visibility="{Binding DeadLine, Converter={StaticResource NullToVisibilityConverter}}"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,0" Text="{Binding Description}" Visibility="{Binding Description, Converter={StaticResource NullToVisibilityConverter}}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
+
+
+        <!-- Tasks Frame -->
+        <Frame Grid.Column="1" x:Name="taskFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+        <!-- Search Drawer -->
+        <Viewbox Grid.Column="2" MaxHeight="600" MaxWidth="400" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <StackPanel MinWidth="200" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <StackPanel Margin="5" VerticalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center">Search</TextBlock>
+                <Components:CustomTextBox HorizontalAlignment="Center" x:Name="SearchBox"/>
+            </StackPanel>
+
+            <StackPanel Margin="5" VerticalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center">Sort Direction</TextBlock>
+                <ComboBox x:Name="DirectionComboBox" SelectedIndex="0" Width="150">
+                    <ComboBoxItem Content="Ascending" Tag="{x:Static Models:SortDirection.ASC}"/>
+                    <ComboBoxItem Content="Descending" Tag="{x:Static Models:SortDirection.DESC}"/>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel VerticalAlignment="Center">
+                <ListBox x:Name="ColorListBox" SelectionMode="Multiple" Margin="5" MaxWidth="300">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle Width="10" Height="10" Fill="{Binding Converter={StaticResource ColorConverter}}" Margin="5"/>
+                                <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemsSource>
+                        <x:Array Type="{x:Type Entities:Color}">
+                            <Entities:Color>Blue</Entities:Color>
+                            <Entities:Color>Green</Entities:Color>
+                            <Entities:Color>Purple</Entities:Color>
+                            <Entities:Color>Orange</Entities:Color>
+                            <Entities:Color>Red</Entities:Color>
+                            <Entities:Color>Yellow</Entities:Color>
+                        </x:Array>
+                    </ListBox.ItemsSource>
+                </ListBox>
+
+            </StackPanel>
+
+            <StackPanel Margin="5" VerticalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center">Sort By</TextBlock>
+                <ComboBox x:Name="SortByCombobox" SelectedIndex="0" Width="150">
+                    <ComboBoxItem Content="Default" Tag="Id"/>
+                    <ComboBoxItem Content="Name" Tag="Name"/>
+                    <ComboBoxItem Content="Deadline" Tag="DeadLine"/>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Center">
+                <CheckBox x:Name="isDoneFilter" Content="is Project Done"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Center">
+                <Components:CustomButton Click="ApplyFilter_Click" Width="110" Text="Apply"/>
+                <Components:IconButton Width="35" Height="35" Click="ClearFilter_Click" Image="../Icons/refresh_cw_icon.png" />
+            </StackPanel>
+        </StackPanel>
+    </Viewbox>
     </Grid>
 </Page>

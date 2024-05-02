@@ -15,8 +15,8 @@
             <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Margin="5" Background="LightGray">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="9*"/>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="8.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Margin="5" Orientation="Horizontal" HorizontalAlignment="Stretch">
                         <CheckBox HorizontalAlignment="Stretch" Margin="0 0 0 5" Click="CheckBox_ToggleDone" Tag="{Binding Id}" IsChecked="{Binding isDone, Mode=TwoWay}">
@@ -35,7 +35,7 @@
                             </CheckBox.Content>
                         </CheckBox>
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Margin="5" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                    <StackPanel Grid.Column="1" Margin="5" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Components:IconButton HorizontalAlignment="Right" Width="30" Height="25" Image="../Icons/trash_2_icon.png" Click="DeleteTaskButton_Click" Tag="{Binding Id}">
                             <Components:IconButton.ToolTip>
                                 <TextBlock>Delete Task</TextBlock>
@@ -54,20 +54,20 @@
         </Grid.RowDefinitions>
 
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-            <Components:IconButton Width="30" Height="30" Image="../Icons/chevron_left_icon.png" Click="BackButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" >
+            <Components:IconButton Width="30" Height="30" Image="../Icons/chevron_left_icon.png" Click="BackButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,15,5,10">
                 <Components:IconButton.ToolTip>
                     <TextBlock>Go back</TextBlock>
                 </Components:IconButton.ToolTip>
             </Components:IconButton>
-            <Components:IconButton Width="200" Height="25" Image="../Icons/plus_add_icon.png" Click="AddSubtaskButton_Click" Text="New Subtask" Margin="15,10,15,10">
+            <Components:IconButton Width="200" Height="25" Image="../Icons/plus_add_icon.png" Click="AddSubtaskButton_Click" Text="New Subtask" Margin="15,15,15,10">
                 <Components:IconButton.ToolTip>
                     <TextBlock>Add Subtask</TextBlock>
                 </Components:IconButton.ToolTip>
             </Components:IconButton>
         </StackPanel>
 
-        <ScrollViewer Grid.Row="1" MaxHeight="290" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel x:Name="SubtaskStackPanel" Margin="10,0,10,0" />
         </ScrollViewer>
     </Grid>

@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDo.Components"
         mc:Ignorable="d"
-        Title="Add Subtask" Height="200" Width="250" WindowStyle="None" BorderBrush="#FF964F"
-        BorderThickness="5"
-        AllowsTransparency="True">
+        Title="Add Subtask" Height="250" Width="250" ResizeMode="NoResize" BorderBrush="#FF964F"
+        BorderThickness="5">
     <StackPanel>
         <StackPanel Background="#FF964F">
             <TextBlock Foreground="#ffffff" HorizontalAlignment="Center" FontSize="17" FontWeight="Bold" Margin="10">Add a Subtask</TextBlock>

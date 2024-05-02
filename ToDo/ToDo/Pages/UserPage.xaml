@@ -12,34 +12,35 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Grid.Margin>
-                <Thickness Left="50" Right="50" Top="20" Bottom="20"/>
-            </Grid.Margin>
+        <StackPanel Grid.Row="0"></StackPanel>
 
-            <Border Background="#f2f2f2" CornerRadius="10">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="25">
-                    <TextBlock HorizontalAlignment="Center" Margin="0,0,0,10">Username</TextBlock>
-                    <Components:CustomTextBox HorizontalAlignment="Center" x:Name="userEdit"/>
-                    <TextBlock x:Name="usernameInUse" Foreground="Red" TextAlignment="Center" Visibility="Collapsed">Username already in use</TextBlock>
-                    <TextBlock HorizontalAlignment="Center" Margin="0,10,0,10">PIN</TextBlock>
-                    <Components:CustomTextBox HorizontalAlignment="Center" x:Name="pinEdit" PreviewTextInput="NumberValidationTextBox" Margin="0,0,0,20"/>
-                    <StackPanel Orientation="Horizontal">
-                        <Components:CustomButton HorizontalAlignment="Center" Width="100" Height="35" Click="ButtonEdit" Text="Edit"/>
-                        <Components:IconButton HorizontalAlignment="Center"  Width="35" Height="35" Click="ButtonRefresh" Image="../Icons/refresh_cw_icon.png">
-                            <Components:IconButton.ToolTip>
-                                <TextBlock>Refresh user info</TextBlock>
-                            </Components:IconButton.ToolTip>
-                        </Components:IconButton>
+        <Grid Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+  
+                <Border  Background="#f2f2f2" CornerRadius="10">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="25">
+                        <TextBlock HorizontalAlignment="Center" Margin="0,0,0,10">Username</TextBlock>
+                        <Components:CustomTextBox HorizontalAlignment="Center" x:Name="userEdit"/>
+                        <TextBlock x:Name="usernameInUse" Foreground="Red" TextAlignment="Center" Visibility="Collapsed">Username already in use</TextBlock>
+                        <TextBlock HorizontalAlignment="Center" Margin="0,10,0,10">PIN</TextBlock>
+                        <Components:CustomTextBox HorizontalAlignment="Center" x:Name="pinEdit" PreviewTextInput="NumberValidationTextBox" Margin="0,0,0,20"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Components:CustomButton Width="100" Height="35" Click="ButtonEdit" Text="Edit"/>
+                            <Components:IconButton Width="35" Height="35" Click="ButtonRefresh" Image="../Icons/refresh_cw_icon.png">
+                                <Components:IconButton.ToolTip>
+                                    <TextBlock>Refresh user info</TextBlock>
+                                </Components:IconButton.ToolTip>
+                            </Components:IconButton>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
-            </Border>
+                </Border>
+       
         </Grid>
-        <Components:IconButton Width="30" Height="30" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Image="../Icons/trash_2_icon.png" Click="ButtonDelete">
+        <Components:IconButton Width="30" Height="30" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Image="../Icons/trash_2_icon.png" Click="ButtonDelete">
             <Components:IconButton.ToolTip>
                 <TextBlock>Delete current user</TextBlock>
             </Components:IconButton.ToolTip>

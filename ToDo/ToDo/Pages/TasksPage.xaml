@@ -15,8 +15,8 @@
             <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Margin="5" Background="LightGray">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="9*"/>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Margin="5">
                         <CheckBox Margin="0 0 0 5" Click="CheckBox_ToggleDone" Tag="{Binding Id}" IsChecked="{Binding IsDone, Mode=TwoWay}">
@@ -56,21 +56,23 @@
     
     
     <Grid>
-        <Grid Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <StackPanel x:Name="stackPanel" Orientation="Horizontal" >
-                <StackPanel MinWidth="350">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                        <Components:IconButton Width="200" Height="25" Image="../Icons/plus_add_icon.png" Click="AddTaskButton_Click" Text="New Task" Margin="15,10,15,10">
-                            <Components:IconButton.ToolTip>
-                                <TextBlock>Add Task</TextBlock>
-                            </Components:IconButton.ToolTip>
-                        </Components:IconButton>
-                    </StackPanel>
-                    <ScrollViewer MaxHeight="290" VerticalScrollBarVisibility="Auto">
-                        <StackPanel x:Name="TaskStackPanel" Margin="10,0,10,0"/>
-                    </ScrollViewer>
-                </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Components:IconButton Width="200" Height="25" Image="../Icons/plus_add_icon.png" Click="AddTaskButton_Click" Text="New Task" Margin="15,15,15,10">
+                    <Components:IconButton.ToolTip>
+                        <TextBlock>Add Task</TextBlock>
+                    </Components:IconButton.ToolTip>
+                </Components:IconButton>
             </StackPanel>
-        </Grid>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="TaskStackPanel" Margin="10,0,10,0"/>
+        </ScrollViewer>
+
     </Grid>
 </Page>
