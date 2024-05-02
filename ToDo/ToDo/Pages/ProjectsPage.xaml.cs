@@ -36,13 +36,13 @@ namespace ToDo.Pages
             _projectService = new ProjectService(dbContext, _userService);
             _filterDto = new ProjectFilterSortDto();
             LoadProjects();
+            ProjectListBox.SelectedIndex = 0;
         }
 
         private void LoadProjects()
         {
             var projects = _projectService.GetAllProjects(_filterDto);
             ProjectListBox.ItemsSource = projects;
-            ProjectListBox.SelectedIndex = 0;
             if (projects.Count() == 0) taskFrame.Content = null;
         }
 
