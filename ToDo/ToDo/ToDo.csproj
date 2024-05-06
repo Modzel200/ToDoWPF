@@ -20,6 +20,8 @@
       <None Remove="Icons\chevron_right_arrow_icon.png" />
       <None Remove="Icons\chevron_up_icon.png" />
       <None Remove="Icons\edit_icon.png" />
+      <None Remove="Icons\filter_icon.png" />
+      <None Remove="Icons\home_icon.png" />
       <None Remove="Icons\logo.png" />
       <None Remove="Icons\number_eight_fill_icon.png" />
       <None Remove="Icons\number_five_fill_icon.png" />
@@ -33,7 +35,11 @@
       <None Remove="Icons\number_zero_fill_icon.png" />
       <None Remove="Icons\plus_add_icon.png" />
       <None Remove="Icons\refresh_cw_icon.png" />
+      <None Remove="Icons\sort_down_icon.png" />
+      <None Remove="Icons\sort_filter_icon.png" />
+      <None Remove="Icons\sort_up_icon.png" />
       <None Remove="Icons\submit_icon.png" />
+      <None Remove="Icons\suitcase_icon.png" />
       <None Remove="Icons\trash_2_icon.png" />
       <None Remove="Icons\user_icon.png" />
       <None Remove="Icons\x_icon.png" />
@@ -45,6 +51,8 @@
       <Resource Include="Icons\bell_icon.png" />
       <Resource Include="Icons\bell_icon_red.png" />
       <Resource Include="Icons\edit_icon.png" />
+      <Resource Include="Icons\filter_icon.png" />
+      <Resource Include="Icons\home_icon.png" />
       <Resource Include="Icons\logo.png" />
       <Resource Include="Icons\number_one_light_icon.png" />
     </ItemGroup>
@@ -67,6 +75,9 @@
       <Resource Include="Icons\number_zero_fill_icon.png" />
       <Resource Include="Icons\plus_add_icon.png" />
       <Resource Include="Icons\refresh_cw_icon.png" />
+      <Resource Include="Icons\sort_down_icon.png" />
+      <Resource Include="Icons\sort_filter_icon.png" />
+      <Resource Include="Icons\sort_up_icon.png" />
       <Resource Include="Icons\submit_icon.png" />
     </ItemGroup>
 
@@ -78,6 +89,7 @@
 
     <ItemGroup>
       <Resource Include="Icons\chevrons_right_icon.png" />
+      <Resource Include="Icons\suitcase_icon.png" />
       <Resource Include="Icons\trash_2_icon.png" />
       <Resource Include="Icons\user_icon.png" />
       <Resource Include="Icons\x_icon.png" />

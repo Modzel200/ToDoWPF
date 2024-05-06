@@ -27,6 +27,7 @@ namespace ToDo.Pages
         private UserService _userService;
         private ProjectService _projectService;
         private ProjectFilterSortDto _filterDto;
+        private bool isDeleted = false;
         public ProjectsPage()
         {
             InitializeComponent();
@@ -44,6 +45,7 @@ namespace ToDo.Pages
             var projects = _projectService.GetAllProjects(_filterDto);
             ProjectListBox.ItemsSource = projects;
             if (projects.Count() == 0) taskFrame.Content = null;
+            if(isDeleted) ProjectListBox.SelectedIndex = 0;
         }
 
         private void ProjectListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -81,7 +83,9 @@ namespace ToDo.Pages
             {
                 ProjectListBox.SelectedIndex = 0;
                 _projectService.DeleteProject(selectedProject.Id);
+                isDeleted = true;
                 LoadProjects();
+                isDeleted = false;
             }
         }
 

@@ -63,9 +63,19 @@
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Components:IconButton x:Name="FilterButton" Width="30" Height="25" Image="../Icons/filter_icon.png" Click="ChangeFilterButton_Click" Margin="15,15,5,10">
+                    <Components:IconButton.ToolTip>
+                        <TextBlock>Filter work/home</TextBlock>
+                    </Components:IconButton.ToolTip>
+                </Components:IconButton>
                 <Components:IconButton Width="200" Height="25" Image="../Icons/plus_add_icon.png" Click="AddTaskButton_Click" Text="New Task" Margin="15,15,15,10">
                     <Components:IconButton.ToolTip>
                         <TextBlock>Add Task</TextBlock>
+                    </Components:IconButton.ToolTip>
+                </Components:IconButton>
+                <Components:IconButton x:Name="SortButton" Width="30" Height="25" Image="../Icons/sort_filter_icon.png" Click="ChangeSortButton_Click" Margin="5,15,15,10">
+                    <Components:IconButton.ToolTip>
+                        <TextBlock>Sort by importancy</TextBlock>
                     </Components:IconButton.ToolTip>
                 </Components:IconButton>
             </StackPanel>

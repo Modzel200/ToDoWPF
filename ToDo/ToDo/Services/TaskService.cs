@@ -20,7 +20,7 @@ namespace ToDo.Services
             this._userService = userService;
             _projectService = projectService;
         }
-        public IEnumerable<TaskDto> GetAllTasks(int projectId)
+        public IEnumerable<TaskDto> GetAllTasks(int projectId, TaskFilterSortDto queryDto)
         {
             var user = _userService.loggedUser();
             if (user == null)
@@ -32,7 +32,28 @@ namespace ToDo.Services
             {
                 return null;
             }
-            var tasks = _context.Tasks.Include(x => x.SubTasks).Where(x => x.ProjectId == project.Id).Select(x => new TaskDto()
+
+            var query = _context.Tasks.Include(x => x.SubTasks).Where(x => x.ProjectId == project.Id);
+
+            if (queryDto.CategoryFilter.HasValue)
+            {
+                query = query.Where(x => x.Category == queryDto.CategoryFilter.Value);
+            }
+
+            if (queryDto.Sort.HasValue)
+            {
+                switch (queryDto.Sort)
+                {
+                    case PriorityLevel.Very_Important:
+                        query = query.OrderByDescending(x => x.PriorityLevel);
+                        break;
+                    default:
+                        query = query.OrderBy(x => x.PriorityLevel);
+                        break;
+                }
+            }
+
+            var tasks = query.Select(x => new TaskDto()
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -41,8 +62,9 @@ namespace ToDo.Services
                 PriorityLevel = x.PriorityLevel,
                 DeadLine = x.DeadLine,
                 IsDone = x.IsDone,
-                DoneRatio = x.SubTasks.Where(y => y.isDone == true).Count()/x.SubTasks.Count(),
+                DoneRatio = x.SubTasks.Where(y => y.isDone == true).Count() / (float)x.SubTasks.Count(), 
             }).ToList();
+
             return tasks;
         }
         public TaskDto? GetTask(int taskId)

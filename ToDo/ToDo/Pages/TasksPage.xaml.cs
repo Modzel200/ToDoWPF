@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using ToDo.Components;
 using ToDo.Models;
 using ToDo.Services;
@@ -16,6 +17,7 @@ namespace ToDo.Pages
         private readonly ProjectService _projectService;
         private int _projectId;
         private Action reloadProjects;
+        private TaskFilterSortDto _filterDto;
 
         public TasksPage(int projectId, Action reloadProjects)
         {
@@ -26,13 +28,14 @@ namespace ToDo.Pages
             _projectService = new ProjectService(dbContext, _userService);
             _taskService = new TaskService(dbContext, _userService, _projectService);
             _projectId = projectId;
+            _filterDto = new TaskFilterSortDto();
             this.reloadProjects = reloadProjects;
             LoadTasks();
         }
 
         private void LoadTasks()
         {
-            var tasks = _taskService.GetAllTasks(_projectId);
+            var tasks = _taskService.GetAllTasks(_projectId, _filterDto);
             // Since adding children manually, have to clear before rendering again
             TaskStackPanel.Children.Clear();
             foreach (var task in tasks)
@@ -56,6 +59,50 @@ namespace ToDo.Pages
             AddTaskWindow addTaskWindow = new AddTaskWindow(_projectId);
             addTaskWindow.Closed += AddTaskWindow_Closed;
             addTaskWindow.Show();
+        }
+
+        private void ChangeFilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            switch (_filterDto.CategoryFilter)
+            {
+                case Entities.Category.Work:
+                    FilterButton.Image = new BitmapImage(new Uri("pack://application:,,,/Icons/filter_icon.png"));
+                    _filterDto.CategoryFilter = null;
+                    LoadTasks();
+                    return;
+                case Entities.Category.Home:
+                    FilterButton.Image = new BitmapImage(new Uri("pack://application:,,,/Icons/suitcase_icon.png"));
+                    _filterDto.CategoryFilter = Entities.Category.Work;
+                    LoadTasks();
+                    return;
+                default:
+                    FilterButton.Image = new BitmapImage(new Uri("pack://application:,,,/Icons/home_icon.png"));
+                    _filterDto.CategoryFilter = Entities.Category.Home;
+                    LoadTasks();
+                    return;
+            };
+        }
+
+        private void ChangeSortButton_Click(object sender, RoutedEventArgs e)
+        {
+            switch (_filterDto.Sort)
+            {
+                case Entities.PriorityLevel.Not_Important:
+                    SortButton.Image = new BitmapImage(new Uri("pack://application:,,,/Icons/sort_filter_icon.png"));
+                    _filterDto.Sort = null;
+                    LoadTasks();
+                    return;
+                case Entities.PriorityLevel.Very_Important:
+                    SortButton.Image = new BitmapImage(new Uri("pack://application:,,,/Icons/sort_down_icon.png"));
+                    _filterDto.Sort = Entities.PriorityLevel.Not_Important;
+                    LoadTasks();
+                    return;
+                default:
+                    SortButton.Image = new BitmapImage(new Uri("pack://application:,,,/Icons/sort_up_icon.png"));
+                    _filterDto.Sort = Entities.PriorityLevel.Very_Important;
+                    LoadTasks();
+                    return;
+            };
         }
 
         private void DeleteTaskButton_Click(object sender, RoutedEventArgs e)
